@@ -1,0 +1,35 @@
+{
+  "name": "bitak",
+  "version": "1.0.0",
+  "description": "Online flea market",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KrasimirHG/bitak.git"
+  },
+  "keywords": [
+    "MERN"
+  ],
+  "author": "Krasimir Genchev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KrasimirHG/bitak/issues"
+  },
+  "homepage": "https://github.com/KrasimirHG/bitak#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "concurrently": "^5.3.0",
+    "config": "^3.3.1",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.1"
+  }
+}
