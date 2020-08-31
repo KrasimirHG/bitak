@@ -1,6 +1,33 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../../middleware/auth");
+const multer = require("multer");
+const fs = require("fs");
+
+const storage = multer.diskStorage({
+	destination: "./public/",
+	filename: function(req, file, cb) {
+		cb(null, "IMAGE-" + Date.now() + path.extname(file.originalname));
+	},
+});
+
+const upload = multer({
+	storage: storage,
+	limits: { fileSize: 1000000 },
+}).files("myphotos", 6);
+
+// const obj = (req, res) => {
+// 	upload(req, res, () => {
+// 		console.log("Request ---", req.body);
+// 		console.log("Request file ---", req.file); //Here you get file.
+// 		 const file = new File();
+// 		file.meta_data = req.file;
+// 		file.save().then(() => {
+// 			res.send({ message: "uploaded successfully" });
+// 		});
+// 		/*Now do where ever you want to do*/
+// 	});
+// };
 
 //item Model
 const Item = require("../../models/Item");
@@ -18,9 +45,19 @@ router.get("/", (req, res) => {
 //@desc   create a Post
 //@access private
 router.post("/", auth, (req, res) => {
-	const newItem = new Item({
-		name: req.body.name,
-	});
+	upload(
+		(req,
+		res,
+		() => {
+			console.log("Request ---", req.body);
+			console.log("Request file ---", req.array); //Here you get files.
+			const newItem = new Item();
+			newItem.name = req.body.name;
+			newItem.discription = req.body.discription;
+			newItem.img = req.files;
+		})
+	);
+
 	newItem.save().then((item) => res.json(item)); //with save() we save the newItem in db
 });
 

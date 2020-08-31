@@ -1,9 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
-const fs = require("fs");
-
 const app = express();
+const config = require("config");
 
 //body-parser middleware
 app.use(express.json());
