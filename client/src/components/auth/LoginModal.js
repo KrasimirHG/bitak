@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SignIn() {
+function SignIn(props) {
   const classes = useStyles();
 
   return (
@@ -52,7 +52,7 @@ function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate onSubmit="props.submitForm">
+        <form className={classes.form} noValidate onSubmit={props.submitForm}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -62,7 +62,7 @@ function SignIn() {
             label="Email Address"
             name="email"
             autoComplete="email"
-            onChange="props.handleChange"
+            onChange={props.handleChange}
             autoFocus
           />
           <TextField
@@ -74,7 +74,7 @@ function SignIn() {
             label="Password"
             type="password"
             id="password"
-            onChange="props.handleChange"
+            onChange={props.handleChange}
             autoComplete="current-password"
           />
           <FormControlLabel
@@ -96,35 +96,25 @@ function SignIn() {
   );
 }
 
-class LogIn extends Component {
+export default class LoginModal extends Component {
   state = {
+    isOpen: false,
     email: "",
     password: "",
   };
 
-  handleChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  submitForm(e) {
-    e.preventDefault();
-    console.log("Lognat");
-  }
-
-  render() {
-    return (
-      <SignIn handleChange={this.handleChange} submitForm={this.submitForm} />
-    );
-  }
-}
-
-export default class LoginModal extends Component {
-  state = {
-    isOpen: false,
-  };
-
   handleModal = () => {
     this.setState({ isOpen: !this.state.isOpen });
+  };
+
+  handleChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  submitForm = (e) => {
+    e.preventDefault();
+    console.log("Lognat");
+    this.handleModal();
   };
 
   render() {
@@ -144,7 +134,10 @@ export default class LoginModal extends Component {
           aria-describedby="simple-modal-description"
           className={this.props.modal}
         >
-          <LogIn />
+          <SignIn
+            handleChange={this.handleChange}
+            submitForm={this.submitForm}
+          />
         </Modal>
       </Box>
     );
