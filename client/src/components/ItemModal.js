@@ -69,7 +69,7 @@ class ItModal extends Component {
 					className={this.props.button}
 					onClick={this.handleModal}
 				>
-					Register
+					AddItem
 				</Button>
 				<Modal
 					open={this.state.isOpen}

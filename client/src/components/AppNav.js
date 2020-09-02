@@ -6,6 +6,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
+import LoginModal from "./auth/LoginModal";
 
 const useStyles = makeStyles((theme) => ({
 	appBar: {
@@ -13,12 +14,17 @@ const useStyles = makeStyles((theme) => ({
 	},
 	toolbar: {
 		flexWrap: "wrap",
+		backgroundColor: "#ffb74d",
 	},
 	toolbarTitle: {
 		flexGrow: 1,
+		color: "navy",
 	},
 	link: {
 		margin: theme.spacing(1, 1.5),
+		color: "#aaffcc",
+		border: "1px solid blue",
+		backgroundColor: "darkgrey",
 	},
 }));
 
@@ -45,20 +51,12 @@ export default function Pricing() {
 					</Typography>
 					<Button
 						href="#"
-						color="primary"
 						variant="outlined"
 						className={classes.link}
 					>
 						Register
 					</Button>
-					<Button
-						href="#"
-						color="primary"
-						variant="outlined"
-						className={classes.link}
-					>
-						Login
-					</Button>
+					<LoginModal />
 				</Toolbar>
 			</AppBar>
 		</Fragment>

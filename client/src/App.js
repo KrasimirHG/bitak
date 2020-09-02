@@ -1,12 +1,14 @@
 import React from "react";
-import Pricing from "./components/MUIExample";
 import AppNav from "./components/AppNav";
+import ShoppingList from "./components/ShoppingList";
+import Box from "@material-ui/core/Box";
 
 function App() {
   return (
-    <div>
+    <Box>
       <AppNav />
-    </div>
+      <ShoppingList />
+    </Box>
   );
 }
 
