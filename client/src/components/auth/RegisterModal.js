@@ -56,11 +56,26 @@ class ItModal extends Component {
 		super();
 		this.state = {
 			isOpen: false,
+			firstName: "",
+			lastName: "",
+			email: "",
+			password: "",
 		};
 	}
 	handleModal = () => {
 		this.setState({ isOpen: !this.state.isOpen });
 	};
+
+	handleChange = (e) => {
+		this.setState({ [e.target.name]: e.target.value });
+	};
+
+	submitForm = (e) => {
+		e.preventDefault();
+		console.log("REestriran");
+		this.handleModal();
+	};
+
 	render() {
 		return (
 			<Box>
@@ -99,6 +114,7 @@ class ItModal extends Component {
 											id="firstName"
 											label="First Name"
 											autoFocus
+											onChange={this.handleChange}
 										/>
 									</Grid>
 									<Grid item xs={12} sm={6}>
@@ -110,6 +126,7 @@ class ItModal extends Component {
 											label="Last Name"
 											name="lastName"
 											autoComplete="lname"
+											onChange={this.handleChange}
 										/>
 									</Grid>
 									<Grid item xs={12}>
@@ -121,6 +138,7 @@ class ItModal extends Component {
 											label="Email Address"
 											name="email"
 											autoComplete="email"
+											onChange={this.handleChange}
 										/>
 									</Grid>
 									<Grid item xs={12}>
@@ -133,6 +151,7 @@ class ItModal extends Component {
 											type="password"
 											id="password"
 											autoComplete="current-password"
+											onChange={this.handleChange}
 										/>
 									</Grid>
 									<Grid item xs={12}>
@@ -153,6 +172,7 @@ class ItModal extends Component {
 									variant="contained"
 									color="primary"
 									className={this.props.submit}
+									onSubmit={this.submitForm}
 								>
 									Sign Up
 								</Button>
@@ -165,7 +185,7 @@ class ItModal extends Component {
 	}
 }
 
-export default function ItemModal() {
+export default function RegisterModal() {
 	const classes = useStyles();
 	return (
 		<ItModal

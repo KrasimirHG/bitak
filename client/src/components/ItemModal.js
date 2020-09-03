@@ -9,8 +9,9 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import PublishIcon from "@material-ui/icons/Publish";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -56,11 +57,33 @@ class ItModal extends Component {
 		super();
 		this.state = {
 			isOpen: false,
+			name: "",
+			description: "",
+			images: null,
 		};
+		this.onImageChange = this.onImageChange.bind(this);
 	}
 	handleModal = () => {
 		this.setState({ isOpen: !this.state.isOpen });
 	};
+
+	onChange = (e) => {
+		this.setState({ [e.target.name]: e.target.value });
+	};
+
+	onImageChange(e) {
+		this.setState({
+			images: e.target.files,
+		});
+		console.log(e.target.files);
+	}
+
+	onSubmit = (e) => {
+		e.preventDefault();
+		console.log(this.state.images);
+		this.handleModal();
+	};
+
 	render() {
 		return (
 			<Box>
@@ -82,69 +105,57 @@ class ItModal extends Component {
 						<CssBaseline />
 						<div className={this.props.paper}>
 							<Avatar className={this.props.avatar}>
-								<LockOutlinedIcon />
+								<PublishIcon />
 							</Avatar>
 							<Typography component="h1" variant="h5">
-								Sign up
+								Upload Item
 							</Typography>
-							<form className={this.props.form} noValidate>
+							<form
+								className={this.props.form}
+								noValidate
+								onSubmit={this.onSubmit}
+								method="post"
+								encType="multipart/form-data"
+							>
 								<Grid container spacing={2}>
 									<Grid item xs={12} sm={6}>
 										<TextField
-											autoComplete="fname"
-											name="firstName"
+											autoComplete="name"
+											name="name"
 											variant="outlined"
 											required
 											fullWidth
-											id="firstName"
-											label="First Name"
+											id="name"
+											label="name"
+											autoFocus
+											onChange={this.onChange}
+										/>
+									</Grid>
+									<Grid item xs={12}>
+										<TextField
+											variant="outlined"
+											required
+											fullWidth
+											id="description"
+											label="description"
+											name="description"
+											onChange={this.onChange}
 											autoFocus
 										/>
 									</Grid>
-									<Grid item xs={12} sm={6}>
-										<TextField
-											variant="outlined"
-											required
-											fullWidth
-											id="lastName"
-											label="Last Name"
-											name="lastName"
-											autoComplete="lname"
-										/>
-									</Grid>
 									<Grid item xs={12}>
-										<TextField
-											variant="outlined"
-											required
-											fullWidth
-											id="email"
-											label="Email Address"
-											name="email"
-											autoComplete="email"
+										<input
+											accept="image/*"
+											// className={classes.input}
+											id="raised-button-file"
+											multiple
+											type="file"
+											onChange={this.onImageChange}
 										/>
-									</Grid>
-									<Grid item xs={12}>
-										<TextField
-											variant="outlined"
-											required
-											fullWidth
-											name="password"
-											label="Password"
-											type="password"
-											id="password"
-											autoComplete="current-password"
-										/>
-									</Grid>
-									<Grid item xs={12}>
-										<FormControlLabel
-											control={
-												<Checkbox
-													value="allowExtraEmails"
-													color="primary"
-												/>
-											}
-											label="I want to receive inspiration, marketing promotions and updates via email."
-										/>
+										<div>
+											The images format must be png ,
+											jpeg, jpg or tiff
+										</div>
 									</Grid>
 								</Grid>
 								<Button
@@ -154,7 +165,7 @@ class ItModal extends Component {
 									color="primary"
 									className={this.props.submit}
 								>
-									Sign Up
+									Upload
 								</Button>
 							</form>
 						</div>

@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import LoginModal from "./auth/LoginModal";
+import RegisterModal from "./auth/RegisterModal";
 
 const useStyles = makeStyles((theme) => ({
 	appBar: {
@@ -49,13 +50,7 @@ export default function Pricing() {
 					>
 						Bitak
 					</Typography>
-					<Button
-						href="#"
-						variant="outlined"
-						className={classes.link}
-					>
-						Register
-					</Button>
+					<RegisterModal />
 					<LoginModal />
 				</Toolbar>
 			</AppBar>
