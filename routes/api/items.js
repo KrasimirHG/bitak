@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
 const upload = multer({
 	storage: storage,
 	limits: { fileSize: 1000000 },
-}).files("myphotos", 6);
+}).single("myImage");
 
 // const obj = (req, res) => {
 // 	upload(req, res, () => {
@@ -44,7 +44,7 @@ router.get("/", (req, res) => {
 //@route  POST api/items
 //@desc   create a Post
 //@access private
-router.post("/", auth, (req, res) => {
+router.post("/", (req, res) => {
 	upload(
 		(req,
 		res,
@@ -53,8 +53,8 @@ router.post("/", auth, (req, res) => {
 			console.log("Request file ---", req.array); //Here you get files.
 			const newItem = new Item();
 			newItem.name = req.body.name;
-			newItem.discription = req.body.discription;
-			newItem.img = req.files;
+			newItem.discription = req.body.description;
+			newItem.img = req.file;
 		})
 	);
 

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import Box from "@material-ui/core/Box";
@@ -7,10 +8,7 @@ import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
-import TextareaAutosize from "@material-ui/core/TextareaAutosize";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import PublishIcon from "@material-ui/icons/Publish";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -59,9 +57,8 @@ class ItModal extends Component {
 			isOpen: false,
 			name: "",
 			description: "",
-			images: null,
+			img: null,
 		};
-		this.onImageChange = this.onImageChange.bind(this);
 	}
 	handleModal = () => {
 		this.setState({ isOpen: !this.state.isOpen });
@@ -71,16 +68,29 @@ class ItModal extends Component {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
-	onImageChange(e) {
-		this.setState({
-			images: e.target.files,
-		});
+	onImageChange = (e) => {
+		this.setState({ img: e.target.files[0] });
 		console.log(e.target.files);
-	}
+	};
 
 	onSubmit = (e) => {
 		e.preventDefault();
 		console.log(this.state.images);
+		const formData = new FormData();
+		formData.append("myImage", this.state.img);
+		formData.append("name", this.state.name);
+		formData.append("desc", this.state.description);
+		const config = {
+			headers: {
+				"content-type": "multipart/form-data",
+			},
+		};
+		axios
+			.post("/api/items", formData, config)
+			.then((response) => {
+				alert("The file is successfully uploaded");
+			})
+			.catch((error) => {});
 		this.handleModal();
 	};
 
