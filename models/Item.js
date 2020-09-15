@@ -5,7 +5,6 @@ const Schema = mongoose.Schema;
 const ItemSchema = new Schema({
 	name: {
 		type: String,
-		required: true,
 	},
 	date: {
 		type: Date,
@@ -13,11 +12,9 @@ const ItemSchema = new Schema({
 	},
 	description: {
 		type: String,
-		required: true,
 	},
-	img: {
-		type: Buffer,
-	},
+	filename: [String],
+	filepath: [String],
 });
 
 module.exports = Item = mongoose.model("item", ItemSchema);

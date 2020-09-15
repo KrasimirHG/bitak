@@ -4,17 +4,17 @@ const auth = require("../../middleware/auth");
 const multer = require("multer");
 const fs = require("fs");
 
-const storage = multer.diskStorage({
-	destination: "./public/",
-	filename: function(req, file, cb) {
-		cb(null, "IMAGE-" + Date.now() + path.extname(file.originalname));
+// SET STORAGE
+var storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+		cb(null, "uploads");
+	},
+	filename: function (req, file, cb) {
+		cb(null, file.originalname);
 	},
 });
 
-const upload = multer({
-	storage: storage,
-	limits: { fileSize: 1000000 },
-}).single("myImage");
+var upload = multer({ storage: storage });
 
 // const obj = (req, res) => {
 // 	upload(req, res, () => {
@@ -32,6 +32,8 @@ const upload = multer({
 //item Model
 const Item = require("../../models/Item");
 
+const port = process.env.PORT || 5000;
+
 //@route  GET api/items
 //@desc   get all Items
 //@access public
@@ -44,21 +46,33 @@ router.get("/", (req, res) => {
 //@route  POST api/items
 //@desc   create a Post
 //@access private
-router.post("/", (req, res) => {
-	upload(
-		(req,
-		res,
-		() => {
-			console.log("Request ---", req.body);
-			console.log("Request file ---", req.array); //Here you get files.
-			const newItem = new Item();
-			newItem.name = req.body.name;
-			newItem.discription = req.body.description;
-			newItem.img = req.file;
-		})
+router.post("/", upload.array("pictures", 6), (req, res, next) => {
+	const resImages = req.files;
+	const imgNames = resImages.map((img) => img.filename);
+	const imgPaths = resImages.map(
+		(img) => `${req.hostname}:${port}/${img.path}`
 	);
 
-	newItem.save().then((item) => res.json(item)); //with save() we save the newItem in db
+	// var filename = req.file.filename;
+	// console.log(filename);
+	// var filepath = `${req.hostname}:${port}/${req.file.path}`;
+	// console.log(filepath);
+	const newItem = new Item({
+		name: req.body.itemName,
+		description: req.body.itemDesc,
+		filename: imgNames,
+		filepath: imgPaths,
+	});
+
+	if (!req.files) {
+		const error = new Error("Please upload a files");
+		error.httpStatusCode = 400;
+		return next(error);
+	}
+
+	newItem.save()
+	       .then((item) => res.json(item)) //with save() we save the newItem in db
+	       .catch((err) => res.status(404).json({ success: false }));
 });
 
 //@route  DELETE api/items/:id
