@@ -3,19 +3,28 @@ const mongoose = require("mongoose");
 const path = require("path");
 const app = express();
 const config = require("config");
+const cors = require("cors");
 
 //body-parser middleware
 app.use(express.json());
 
+app.use(cors());
+
 //db config
+<<<<<<< HEAD
 //const db = config.get("mongoURI");
 const db = "mongodb://127.0.0.1:27017/MulterBulter";
+=======
+// const db = config.get("mongoURI");
+//const db = "mongodb+srv://Krasio:Krasimir@cluster0.wpip2.mongodb.net/MulterBulter?retryWrites=true&w=majority"
+>>>>>>> 0dc45f3c97d3e1ec3e75db9b82359081e824efaf
 
 //connect to mongo
 mongoose
 	.connect(db, {
 		useNewUrlParser: true,
 		useCreateIndex: true,
+		useUnifiedTopology: true,
 	})
 	.then(() => console.log("connect to mongo"))
 	.catch((err) => console.log(err));

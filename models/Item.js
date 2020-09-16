@@ -5,29 +5,16 @@ const Schema = mongoose.Schema;
 const ItemSchema = new Schema({
 	name: {
 		type: String,
-		required: true,
 	},
 	date: {
 		type: Date,
 		default: Date.now,
 	},
-	// filename: [
-	// 	{
-	// 		type: String,
-	// 	},
-	// ],
-	// filepath: [
-	// 	{
-	// 		type: String,
-	// 	},
-	// ],
-	filename: {
+	description: {
 		type: String,
 	},
-
-	filepath: {
-		type: String,
-	},
+	filename: [String],
+	filepath: [String],
 });
 
 module.exports = Item = mongoose.model("item", ItemSchema);

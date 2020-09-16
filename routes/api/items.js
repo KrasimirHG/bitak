@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../../middleware/auth");
-const fs = require("fs");
 const multer = require("multer");
+const fs = require("fs");
 
 // SET STORAGE
 var storage = multer.diskStorage({
@@ -32,6 +32,8 @@ var upload = multer({ storage: storage });
 //item Model
 const Item = require("../../models/Item");
 
+const port = process.env.PORT || 5000;
+
 //@route  GET api/items
 //@desc   get all Items
 //@access public
@@ -44,42 +46,22 @@ router.get("/", (req, res) => {
 //@route  POST api/items
 //@desc   create a Post
 //@access private
-// router.post("/", upload.array("pictures", 6), (req, res, next) => {
-// 	const resImages = req.files;
-// 	const imgNames = resImages.map((img) => img.filename);
-// 	const imgPaths = resImages.map(
-// 		(img) => `${req.hostname}:${port}/${img.path}`
-// 	);
-// 	console.log(imgNames);
-// 	console.log(imgPaths);
+router.post("/", upload.array("pictures", 6), (req, res, next) => {
+	const resImages = req.files;
+	const imgNames = resImages.map((img) => img.filename);
+	const imgPaths = resImages.map(
+		(img) => `${req.hostname}:${port}/${img.path}`
+	);
 
-// 	// var filename = req.file.filename;
-// 	// console.log(filename);
-// 	// var filepath = `${req.hostname}:${port}/${req.file.path}`;
-// 	// console.log(filepath);
-
-// 	const newItem = new Item({
-// 		name: req.body.itemName,
-// 		description: req.body.itemDesc,
-// 		filename: imgNames,
-// 		filepath: imgPaths,
-// 	});
-
-// 	if (!req.files) {
-// 		const error = new Error("Please upload a files");
-// 		error.httpStatusCode = 400;
-// 		return next(error);
-// 	}
-// 	//res.send("Succesfuly uploaded")
-// 	newItem.save().then((item) => res.json(item)); //with save() we save the newItem in db
-// });
-
-router.post("/", upload.single("pictures"), (req, res, next) => {
+	// var filename = req.file.filename;
+	// console.log(filename);
+	// var filepath = `${req.hostname}:${port}/${req.file.path}`;
+	// console.log(filepath);
 	const newItem = new Item({
 		name: req.body.itemName,
 		description: req.body.itemDesc,
-		filename: req.file.filename,
-		filepath: `${req.hostname}:${port}/${img.path}`,
+		filename: imgNames,
+		filepath: imgPaths,
 	});
 
 	if (!req.files) {
@@ -87,8 +69,11 @@ router.post("/", upload.single("pictures"), (req, res, next) => {
 		error.httpStatusCode = 400;
 		return next(error);
 	}
-	//res.send("Succesfuly uploaded")
-	newItem.save().then((item) => res.json(item)); //with save() we save the newItem in db
+
+	newItem
+		.save()
+		.then((item) => res.json(item)) //with save() we save the newItem in db
+		.catch((err) => res.status(404).json({ success: false }));
 });
 
 //@route  DELETE api/items/:id
