@@ -11,12 +11,22 @@ const ItemSchema = new Schema({
 		type: Date,
 		default: Date.now,
 	},
-	description: {
+	// filename: [
+	// 	{
+	// 		type: String,
+	// 	},
+	// ],
+	// filepath: [
+	// 	{
+	// 		type: String,
+	// 	},
+	// ],
+	filename: {
 		type: String,
-		required: true,
 	},
-	img: {
-		type: Buffer,
+
+	filepath: {
+		type: String,
 	},
 });
 

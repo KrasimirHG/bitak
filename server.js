@@ -8,7 +8,8 @@ const config = require("config");
 app.use(express.json());
 
 //db config
-const db = config.get("mongoURI");
+//const db = config.get("mongoURI");
+const db = "mongodb://127.0.0.1:27017/MulterBulter";
 
 //connect to mongo
 mongoose

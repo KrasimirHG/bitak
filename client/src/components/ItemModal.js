@@ -57,6 +57,8 @@ class ItModal extends Component {
 			isOpen: false,
 			name: "",
 			description: "",
+			filename: [],
+			filepath: [],
 			img: null,
 		};
 	}
@@ -69,22 +71,27 @@ class ItModal extends Component {
 	};
 
 	onImageChange = (e) => {
-		this.setState({ img: e.target.files[0] });
-		console.log(e.target.files);
+		this.setState({ img: e.target.file });
+		console.log(e.target.file);
 	};
 
 	onSubmit = (e) => {
 		e.preventDefault();
-		console.log(this.state.images);
+
 		const formData = new FormData();
-		formData.append("myImage", this.state.img);
-		formData.append("name", this.state.name);
-		formData.append("desc", this.state.description);
+		formData.append("filename", this.state.filename);
+		formData.append("filepath", this.state.filepath);
+		formData.append("itemDesc", this.state.description);
+		formData.append("itemName", this.state.name);
+
+		console.log(formData);
+
 		const config = {
 			headers: {
 				"content-type": "multipart/form-data",
 			},
 		};
+
 		axios
 			.post("/api/items", formData, config)
 			.then((response) => {
@@ -123,7 +130,8 @@ class ItModal extends Component {
 							<form
 								className={this.props.form}
 								noValidate
-								onSubmit={this.onSubmit}
+								//onSubmit={this.onSubmit}
+								action="http://localhost:5000/api/items"
 								method="post"
 								encType="multipart/form-data"
 							>
@@ -131,7 +139,7 @@ class ItModal extends Component {
 									<Grid item xs={12} sm={6}>
 										<TextField
 											autoComplete="name"
-											name="name"
+											name="itemName"
 											variant="outlined"
 											required
 											fullWidth
@@ -148,8 +156,8 @@ class ItModal extends Component {
 											fullWidth
 											id="description"
 											label="description"
-											name="description"
-											onChange={this.onChange}
+											name="itemDesc"
+											// onChange={this.onChange}
 											autoFocus
 										/>
 									</Grid>
@@ -158,9 +166,10 @@ class ItModal extends Component {
 											accept="image/*"
 											// className={classes.input}
 											id="raised-button-file"
+											name="pictures"
 											multiple
 											type="file"
-											onChange={this.onImageChange}
+											// onChange={this.onImageChange}
 										/>
 										<div>
 											The images format must be png ,
