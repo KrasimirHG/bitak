@@ -50,6 +50,8 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+const formData = new FormData();
+
 class ItModal extends Component {
 	constructor() {
 		super();
@@ -60,6 +62,7 @@ class ItModal extends Component {
 			img: null,
 		};
 	}
+
 	handleModal = () => {
 		this.setState({ isOpen: !this.state.isOpen });
 	};
@@ -69,14 +72,17 @@ class ItModal extends Component {
 	};
 
 	onImageChange = (e) => {
-		this.setState({ img: e.target.files[0] });
-		console.log(e.target.file);
+		this.setState({ img: e.target.files });
+		console.log(e.target.files);
+		const files = e.target.files;
+		for (let i = 0; i < files.length; i++) {
+			formData.append(`pictures[${i}]`, files[i]);
+		}
 	};
 
 	onSubmit = (e) => {
 		e.preventDefault();
-		const formData = new FormData();
-		formData.append("myImage", this.state.img);
+
 		formData.append("name", this.state.name);
 		formData.append("desc", this.state.description);
 		const config = {
@@ -86,9 +92,10 @@ class ItModal extends Component {
 		};
 		axios
 			.post("http://localhost:5000/api/items", formData, config)
-			.then((res) => {
-				alert("The file is successfully uploaded");
-			})
+			// .then((res) => {
+			// 	alert("The file is successfully uploaded");
+			// })
+
 			.catch((error) => {
 				console.log(error.data);
 			});
@@ -124,7 +131,7 @@ class ItModal extends Component {
 							<form
 								className={this.props.form}
 								noValidate
-								// onSubmit={this.onSubmit}
+								onSubmit={this.onSubmit}
 								method="post"
 								encType="multipart/form-data"
 								action="http://localhost:5000/api/items"
@@ -140,7 +147,7 @@ class ItModal extends Component {
 											id="itemName"
 											label="itemName"
 											autoFocus
-											// onChange={this.onChange}
+											onChange={this.onChange}
 										/>
 									</Grid>
 									<Grid item xs={12}>
@@ -152,6 +159,7 @@ class ItModal extends Component {
 											label="itemDesc"
 											name="itemDesc"
 											autoFocus
+											onChange={this.onChange}
 										/>
 									</Grid>
 									<Grid item xs={12}>
@@ -162,6 +170,7 @@ class ItModal extends Component {
 											multiple
 											type="file"
 											name="pictures"
+											onChange={this.onImageChange}
 										/>
 										<div>
 											The images format must be png ,
