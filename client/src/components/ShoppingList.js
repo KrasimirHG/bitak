@@ -22,12 +22,9 @@ class ShoppingList extends Component {
 					<div>
 						<h2>{prod.name}</h2>
 						<p>{prod.description}</p>
-						<img
-							src={prod.filename[0]}
-							alt={prod.filename[0]}
-							width="300"
-							height="200"
-						/>
+						{prod.filename.map((pic) => (
+							<img src={pic} alt={pic} width="300" height="250" />
+						))}
 					</div>
 				))}
 			</div>
