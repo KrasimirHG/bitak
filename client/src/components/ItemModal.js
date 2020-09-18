@@ -50,8 +50,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const formData = new FormData();
-
 class ItModal extends Component {
 	constructor() {
 		super();
@@ -62,7 +60,6 @@ class ItModal extends Component {
 			img: null,
 		};
 	}
-
 	handleModal = () => {
 		this.setState({ isOpen: !this.state.isOpen });
 	};
@@ -74,17 +71,19 @@ class ItModal extends Component {
 	onImageChange = (e) => {
 		this.setState({ img: e.target.files });
 		console.log(e.target.files);
-		const files = e.target.files;
-		for (let i = 0; i < files.length; i++) {
-			formData.append(`pictures[${i}]`, files[i]);
-		}
 	};
 
 	onSubmit = (e) => {
 		e.preventDefault();
+		console.log(this.state.images);
+		const formData = new FormData();
 
-		formData.append("name", this.state.name);
-		formData.append("desc", this.state.description);
+		formData.append("itemName", this.state.name);
+		formData.append("itemDesc", this.state.description);
+		const files = this.state.img;
+		for (let i = 0; i < files.length; i++) {
+			formData.append("pictures", files[i]);
+		}
 		const config = {
 			headers: {
 				"content-type": "multipart/form-data",
@@ -92,13 +91,10 @@ class ItModal extends Component {
 		};
 		axios
 			.post("http://localhost:5000/api/items", formData, config)
-			// .then((res) => {
+			// .then((response) => {
 			// 	alert("The file is successfully uploaded");
 			// })
-
-			.catch((error) => {
-				console.log(error.data);
-			});
+			.catch((error) => {});
 		this.handleModal();
 	};
 
@@ -134,18 +130,17 @@ class ItModal extends Component {
 								onSubmit={this.onSubmit}
 								method="post"
 								encType="multipart/form-data"
-								action="http://localhost:5000/api/items"
 							>
 								<Grid container spacing={2}>
 									<Grid item xs={12} sm={6}>
 										<TextField
 											autoComplete="name"
-											name="itemName"
+											name="name"
 											variant="outlined"
 											required
 											fullWidth
-											id="itemName"
-											label="itemName"
+											id="name"
+											label="name"
 											autoFocus
 											onChange={this.onChange}
 										/>
@@ -155,11 +150,11 @@ class ItModal extends Component {
 											variant="outlined"
 											required
 											fullWidth
-											id="itemDesc"
-											label="itemDesc"
-											name="itemDesc"
-											autoFocus
+											id="description"
+											label="description"
+											name="description"
 											onChange={this.onChange}
+											autoFocus
 										/>
 									</Grid>
 									<Grid item xs={12}>
@@ -169,7 +164,6 @@ class ItModal extends Component {
 											id="raised-button-file"
 											multiple
 											type="file"
-											name="pictures"
 											onChange={this.onImageChange}
 										/>
 										<div>
