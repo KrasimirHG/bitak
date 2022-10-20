@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	toolbar: {
 		flexWrap: "wrap",
-		backgroundColor: "#ffb74d",
+		backgroundColor: "lightgrey",
 	},
 	toolbarTitle: {
 		flexGrow: 1,
