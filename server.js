@@ -14,11 +14,11 @@ app.use(cors());
 
 //db config
 
-//const db = config.get("mongoURI");
+// const db = config.get("mongoURI");
 //const db = "mongodb://127.0.0.1:27017/MulterBulter";
 
-// const db = config.get("mongoURI");
-//const db = "mongodb+srv://Krasio:Krasimir@cluster0.wpip2.mongodb.net/MulterBulter?retryWrites=true&w=majority"
+ const db = config.get("mongoURI");
+// const db = "mongodb+srv://Krasio:Krasimir@cluster0.wpip2.mongodb.net/MulterBulter?retryWrites=true&w=majority"
 
 //connect to mongo
 mongoose
