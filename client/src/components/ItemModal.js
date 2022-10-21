@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 		justifyContent: "center",
 	},
 	button: {
-		color: "violet",
+		color: "black",
 		backgroundColor: "darkgrey",
 		fontSize: "1.5rem",
 		margin: theme.spacing(3, 3),

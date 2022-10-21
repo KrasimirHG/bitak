@@ -116,9 +116,9 @@ class ShoppingList extends Component {
 		const products = this.state.stoka;
 		console.log(products);
 		return (
-			<div>
+			<div style={{padding: '10px'}}>
 				<ItemModal />
-				<Grid container direction="row" spacing={2}>
+				<Grid container direction="row" spacing={2} justifyContent="flex-end">
 					{products.map((prod) => (
 						<Grid item xs={12} sm={3}>
 							<ReviewCard
