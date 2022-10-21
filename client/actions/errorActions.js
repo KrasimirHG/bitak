@@ -16,3 +16,4 @@ export const clearErrors = () => {
 		type: CLEAR_ERRORS,
 	};
 };
+// TODO make store and reducers

@@ -37,7 +37,7 @@ export const setItemsLoading = () => (dispatch) => {
 	};
 };
 
-const addItem = (item) => (dispatch) => {
+export const addItem = (item) => (dispatch) => {
 	axios
 		.post("/api/items", item)
 		.then((res) =>

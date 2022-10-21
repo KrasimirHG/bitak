@@ -1,4 +1,3 @@
 module.exports = {
-	mongoURI:
-		"mongodb+srv://Krasio:Krasimir@cluster0.fiyof.mongodb.net/bitak_db?retryWrites=true&w=majority",
+    mongoURI: 'mongodb://localhost:27017/localBitak'
 };
