@@ -17,6 +17,9 @@ import GridList from "@material-ui/core/GridList";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Grid from "@material-ui/core/Grid";
 
+import {getItems} from '../actions/itemActions';
+import store from '../store';
+
 const useStyles = makeStyles((theme) => ({
 	root: {
 		display: "flex",
@@ -107,9 +110,11 @@ class ShoppingList extends Component {
 		stoka: [],
 	};
 	componentDidMount() {
-		axios.get("http://localhost:5000/api/items").then((res) => {
-			this.setState({ stoka: res.data });
-		});
+		// axios.get("http://localhost:5000/api/items").then((res) => {
+		// 	this.setState({ stoka: res.data });
+		// });
+		getItems();
+		console.log("AAAAAAAAA", store.getState());
 	}
 
 	render() {
@@ -133,5 +138,7 @@ class ShoppingList extends Component {
 		);
 	}
 }
+
+// const mapStateToProps = 
 
 export default ShoppingList;
