@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import {connect} from 'react-redux';
+
 import ItemModal from "./ItemModal";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
@@ -18,7 +20,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Grid from "@material-ui/core/Grid";
 
 import {getItems} from '../actions/itemActions';
-import store from '../store';
+// import store from '../store';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -106,19 +108,19 @@ function ItemGridList(props) {
 }
 
 class ShoppingList extends Component {
-	state = {
-		stoka: [],
-	};
+	constructor(props){
+		super();
+		this.state = {
+			stoka: [],
+		};
+	}
+	
 	componentDidMount() {
-		// axios.get("http://localhost:5000/api/items").then((res) => {
-		// 	this.setState({ stoka: res.data });
-		// });
-		getItems();
-		console.log("AAAAAAAAA", store.getState());
+		this.props.getItems();
 	}
 
 	render() {
-		const products = this.state.stoka;
+		const products = this.props.items;
 		console.log(products);
 		return (
 			<div style={{padding: '10px'}}>
@@ -139,6 +141,10 @@ class ShoppingList extends Component {
 	}
 }
 
-// const mapStateToProps = 
+const mapStateToProps = state => {
+	return {
+		items: state.items
+	}
+}
 
-export default ShoppingList;
+export default connect(mapStateToProps, {getItems})(ShoppingList);

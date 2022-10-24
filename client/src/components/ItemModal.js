@@ -77,7 +77,7 @@ class ItModal extends Component {
 
 	onSubmit = (e) => {
 		e.preventDefault();
-		console.log(this.state.images);
+		// TODO put it on action
 		const formData = new FormData();
 
 		formData.append("itemName", this.state.name);
