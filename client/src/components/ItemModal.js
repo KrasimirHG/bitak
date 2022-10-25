@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { connect } from 'react-redux';
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import Box from "@material-ui/core/Box";
@@ -11,6 +11,8 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import PublishIcon from "@material-ui/icons/Publish";
 import { makeStyles } from "@material-ui/core/styles";
+
+import { addItem } from "../actions/itemActions";
 
 const useStyles = makeStyles((theme) => ({
 	"@global": {
@@ -53,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 class ItModal extends Component {
-	constructor() {
+	constructor(props) {
 		super();
 		this.state = {
 			isOpen: false,
@@ -77,26 +79,8 @@ class ItModal extends Component {
 
 	onSubmit = (e) => {
 		e.preventDefault();
-		// TODO put it on action
-		const formData = new FormData();
-
-		formData.append("itemName", this.state.name);
-		formData.append("itemDesc", this.state.description);
-		const files = this.state.img;
-		for (let i = 0; i < files.length; i++) {
-			formData.append("pictures", files[i]);
-		}
-		const config = {
-			headers: {
-				"content-type": "multipart/form-data",
-			},
-		};
-		axios
-			.post("http://localhost:5000/api/items", formData, config)
-			// .then((response) => {
-			// 	alert("The file is successfully uploaded");
-			// })
-			.catch((error) => {});
+		const {name, description, img} = this.state;
+		this.props.addItem(name, description, img);
 		this.handleModal();
 	};
 
@@ -192,7 +176,13 @@ class ItModal extends Component {
 	}
 }
 
-export default function ItemModal() {
+const mapStateToProps = state => {
+	return {
+		items: state.items
+	}
+}
+
+function ItemModal(props) {
 	const classes = useStyles();
 	return (
 		<ItModal
@@ -202,6 +192,9 @@ export default function ItemModal() {
 			avatar={classes.avatar}
 			form={classes.form}
 			submit={classes.submit}
+			addItem={props.addItem}
 		/>
 	);
-}
+};
+
+export default connect(mapStateToProps, {addItem})(ItemModal);

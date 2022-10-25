@@ -13,19 +13,6 @@ export const getItems = () => async (dispatch) => {
 		payload: result.data,
 	})
 }
-// 	dispatch(setItemsLoading());
-// 	axios
-// 		.get("/api/items")
-// 		.then((res) =>
-// 			dispatch({
-// 				type: GET_ITEMS,
-// 				payload: res.data,
-// 			})
-// 		)
-// 		.catch((err) =>
-// 			dispatch(returnErrors(err.response.data, err.response.status))
-// 		);
-// };
 
 export const deleteItem = (id) => (dispatch) => {
 	axios
@@ -47,9 +34,22 @@ export const setItemsLoading = () => (dispatch) => {
 	};
 };
 
-export const addItem = (item) => async (dispatch) => {
-	const result = await axios.post("/api/items", item)
-	.catch((err) =>
+export const addItem = (name, description, img) => async (dispatch) => {
+	const formData = new FormData();
+
+		formData.append("itemName", name);
+		formData.append("itemDesc", description);
+		const files = img;
+		for (let i = 0; i < files.length; i++) {
+			formData.append("pictures", files[i]);
+		}
+		const config = {
+			headers: {
+				"content-type": "multipart/form-data",
+			},
+		};
+		const result = await axios.post("/api/items", formData, config)
+	    .catch((err) =>
 			dispatch(returnErrors(err.response.data, err.response.status))
 		);
 			dispatch({
