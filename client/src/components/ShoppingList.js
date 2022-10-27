@@ -15,11 +15,12 @@ import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
+import DeleteIcon from "@material-ui/icons/Delete";
 import GridList from "@material-ui/core/GridList";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Grid from "@material-ui/core/Grid";
 
-import {getItems} from '../actions/itemActions';
+import {getItems, deleteItem} from '../actions/itemActions';
 // import store from '../store';
 
 const useStyles = makeStyles((theme) => ({
@@ -49,6 +50,14 @@ const useStyles = makeStyles((theme) => ({
 
 function ReviewCard(props) {
 	const classes = useStyles();
+
+	// const handleClick = () => {
+	// 	console.log('Opaaaa', props.id)
+	// }
+
+	function handleDelete() {
+		props.onClick(props.id);
+	}
 
 	return (
 		<Card className={classes.cardRoot}>
@@ -83,8 +92,8 @@ function ReviewCard(props) {
 				<IconButton aria-label="add to favorites">
 					<FavoriteIcon />
 				</IconButton>
-				<IconButton aria-label="share">
-					<ShareIcon />
+				<IconButton aria-label="delete">
+					<DeleteIcon onClick={handleDelete}/>
 				</IconButton>
 			</CardActions>
 		</Card>
@@ -119,6 +128,11 @@ class ShoppingList extends Component {
 		this.props.getItems();
 	}
 
+	handleClick(id) {
+        this.props.deleteItem(id);
+		console.log('PROD_ID IS: ', id)
+	}
+
 	render() {
 		const products = this.props.items;
 		console.log(products);
@@ -132,6 +146,8 @@ class ShoppingList extends Component {
 								pic={prod.filename[0]}
 								name={prod.name}
 								description={prod.description}
+								id={prod._id}
+								onClick={() => this.handleClick(prod._id)}
 							/>
 						</Grid>
 					))}
@@ -147,4 +163,4 @@ const mapStateToProps = state => {
 	}
 }
 
-export default connect(mapStateToProps, {getItems})(ShoppingList);
+export default connect(mapStateToProps, {getItems, deleteItem})(ShoppingList);
