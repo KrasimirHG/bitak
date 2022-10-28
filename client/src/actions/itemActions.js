@@ -14,18 +14,26 @@ export const getItems = () => async (dispatch) => {
 	})
 }
 
-export const deleteItem = (id) => (dispatch) => {
-	axios
-		.delete(`api/items/${id}`)
-		.then((res) =>
-			dispatch({
-				type: DELETE_ITEM,
-				payload: id,
-			})
-		)
-		.catch((err) =>
+export const deleteItem = (id) => async (dispatch) => {
+	await axios.delete(`api/items/${id}`)
+	.catch((err) =>
 			dispatch(returnErrors(err.response.data, err.response.status))
 		);
+	dispatch({
+		type: DELETE_ITEM,
+		payload: id,
+	})	
+	// axios
+	// 	.delete(`api/items/${id}`)
+	// 	.then((res) =>
+	// 		dispatch({
+	// 			type: DELETE_ITEM,
+	// 			payload: id,
+	// 		})
+	// 	)
+	// 	.catch((err) =>
+	// 		dispatch(returnErrors(err.response.data, err.response.status))
+	// 	);
 };
 
 export const setItemsLoading = () => (dispatch) => {

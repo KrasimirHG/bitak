@@ -1,7 +1,7 @@
 const initialState = {
     items: [],
     user: {},
-    errors: []
+    errors: {}
 };
 
 export default function appReducer(state=initialState, action) {
@@ -18,16 +18,22 @@ export default function appReducer(state=initialState, action) {
                 items: [...state.items, action.payload]
             }
         };
+        case 'DELETE_ITEM': {
+            return {
+                ...state,
+                items: state.items.filter(el => el._id !== action.payload)
+            }
+        };
         case 'GET_ERRORS': {
             return {
                 ...state,
-                errors: [...action.payload]
+                errors: {...action.payload}
             }
         };
         case 'CLEAR_ERRORS': {
             return {
                 ...state,
-                errors: []
+                errors: {}
             }
         };
         default: return state;
