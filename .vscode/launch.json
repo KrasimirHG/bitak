@@ -3,7 +3,13 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [
+    "configurations": [    
+        {
+            "command": "npm run dev",
+            "name": "Run server and client",
+            "request": "launch",
+            "type": "node-terminal"
+        },
         {
             "type": "node",
             "request": "launch",
