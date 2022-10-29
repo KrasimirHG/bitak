@@ -1,14 +1,14 @@
-import React from "react";
-import AppNav from "./components/AppNav";
-import ShoppingList from "./components/ShoppingList";
-import Box from "@material-ui/core/Box";
+import React from 'react'
+import { Routes, Route } from "react-router-dom"
+import Home from './components/Home';
+import DetailReview from './components/DetailReview';
 
 function App() {
   return (
-    <Box>
-      <AppNav />
-      <ShoppingList />
-    </Box>
+    <Routes>
+      <Route path="/" element={ <Home/> } />
+      <Route path="DetailReview" element={ <DetailReview/> } />
+    </Routes>
   );
 }
 

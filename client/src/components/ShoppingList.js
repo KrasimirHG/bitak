@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {connect} from 'react-redux';
+import { Link } from "react-router-dom";
 
 import ItemModal from "./ItemModal";
 import axios from "axios";
@@ -21,6 +22,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Grid from "@material-ui/core/Grid";
 
 import {getItems, deleteItem} from '../actions/itemActions';
+
 // import store from '../store';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 	media: {
 		height: 0,
 		paddingTop: "56.25%", // 16:9
+		cursor: "pointer"
 	},
 
 	avatar: {
@@ -59,6 +62,10 @@ function ReviewCard(props) {
 		props.onClick(props.id);
 	}
 
+	function handleMedia() {
+		console.log("Media Id is: ", props.id)
+	}
+
 	return (
 		<Card className={classes.cardRoot}>
 			<CardHeader
@@ -75,11 +82,14 @@ function ReviewCard(props) {
 				title={props.name}
 				subheader={props.date}
 			/>
+			<Link to="/detailReview">
 			<CardMedia
 				className={classes.media}
 				image={props.pic}
 				title={props.name}
+				onClick={handleMedia} // TODO onClick set choosen item in the store
 			/>
+			</Link> |{" "}
 			<CardContent>
 				<Typography variant="body2" color="textSecondary" component="p">
 					{props.description}

@@ -10,7 +10,9 @@ class DetailReview extends Component {
     }
     render() {
         return (
-            <div>AAA</div>
+            <div>this.props.id</div>
         )
     }
-}
+};
+
+export default DetailReview;

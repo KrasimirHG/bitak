@@ -1,7 +1,8 @@
 const initialState = {
     items: [],
     user: {},
-    errors: {}
+    errors: {},
+    choosenItem: {}
 };
 
 export default function appReducer(state=initialState, action) {
