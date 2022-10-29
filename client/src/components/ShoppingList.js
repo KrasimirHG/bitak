@@ -21,7 +21,7 @@ import GridList from "@material-ui/core/GridList";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Grid from "@material-ui/core/Grid";
 
-import {getItems, deleteItem} from '../actions/itemActions';
+import {getItems, deleteItem, selectItem} from '../actions/itemActions';
 
 // import store from '../store';
 
@@ -59,12 +59,14 @@ function ReviewCard(props) {
 	// }
 
 	function handleDelete() {
-		props.onClick(props.id);
+		props.delItem(props.item._id);
 	}
 
-	function handleMedia() {
-		console.log("Media Id is: ", props.id)
+	function handleSelectItem() {
+		props.setItem(props.item)
 	}
+
+	const {name, date, filename, description} = props.item;
 
 	return (
 		<Card className={classes.cardRoot}>
@@ -79,20 +81,20 @@ function ReviewCard(props) {
 						<MoreVertIcon />
 					</IconButton>
 				}
-				title={props.name}
-				subheader={props.date}
+				title={name}
+				subheader={date}
 			/>
 			<Link to="/detailReview">
 			<CardMedia
 				className={classes.media}
-				image={props.pic}
-				title={props.name}
-				onClick={handleMedia} // TODO onClick set choosen item in the store
+				image={filename[0]}
+				title={name}
+				onClick={handleSelectItem}
 			/>
 			</Link> |{" "}
 			<CardContent>
 				<Typography variant="body2" color="textSecondary" component="p">
-					{props.description}
+					{description}
 					This impressive paella is a perfect party dish and a fun
 					meal to cook together with your guests. Add 1 cup of frozen
 					peas along with the mussels, if you like.
@@ -138,9 +140,13 @@ class ShoppingList extends Component {
 		this.props.getItems();
 	}
 
-	handleClick(id) {
+	delItem(id) {
         this.props.deleteItem(id);
 		console.log('PROD_ID IS: ', id)
+	}
+
+	setItem(item) {
+		this.props.selectItem(item);
 	}
 
 	render() {
@@ -153,11 +159,12 @@ class ShoppingList extends Component {
 					{products.map((prod) => (
 						<Grid item xs={12} sm={3}>
 							<ReviewCard
-								pic={prod.filename[0]}
-								name={prod.name}
-								description={prod.description}
-								id={prod._id}
-								onClick={() => this.handleClick(prod._id)}
+								// pic={prod.filename[0]}
+								// name={prod.name}
+								// description={prod.description}
+								item={prod}
+								delItem={() => this.delItem(prod._id)}
+								setItem={() => this.setItem(prod)}
 							/>
 						</Grid>
 					))}
@@ -173,4 +180,4 @@ const mapStateToProps = state => {
 	}
 }
 
-export default connect(mapStateToProps, {getItems, deleteItem})(ShoppingList);
+export default connect(mapStateToProps, {getItems, deleteItem, selectItem})(ShoppingList);

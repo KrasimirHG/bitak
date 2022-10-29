@@ -2,7 +2,7 @@ const initialState = {
     items: [],
     user: {},
     errors: {},
-    choosenItem: {}
+    selectedItem: {}
 };
 
 export default function appReducer(state=initialState, action) {
@@ -17,6 +17,12 @@ export default function appReducer(state=initialState, action) {
             return {
                 ...state,
                 items: [...state.items, action.payload]
+            }
+        };
+        case 'SELECT_ITEM': {
+            return {
+                ...state,
+                selectedItem: action.payload
             }
         };
         case 'DELETE_ITEM': {
