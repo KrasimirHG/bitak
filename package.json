@@ -1,24 +1,20 @@
 {
   "name": "bitak",
   "version": "1.0.0",
-  "description": "Online flea market",
+  "description": "bitak laptop",
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefix client",
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "test": "jest"
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/KrasimirHG/bitak.git"
   },
-  "keywords": [
-    "MERN"
-  ],
-  "author": "Krasimir Genchev",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/KrasimirHG/bitak/issues"
@@ -26,18 +22,13 @@
   "homepage": "https://github.com/KrasimirHG/bitak#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "concurrently": "^5.3.0",
-    "config": "^3.3.1",
+    "concurrently": "^7.5.0",
+    "config": "^3.3.8",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.13.5",
-    "multer": "^1.4.2",
-    "nodemon": "^2.0.12",
-    "react-redux": "^8.0.4",
-    "redux": "^4.2.0",
-    "redux-thunk": "^2.4.1"
-  },
-  "devDependencies": {},
-  "proxy": "http://localhost:5000"
+    "mongoose": "^6.7.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^2.0.20"
+  }
 }

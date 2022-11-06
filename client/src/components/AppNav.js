@@ -1,59 +1,34 @@
-import React, { Component, Fragment } from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
-import { makeStyles } from "@material-ui/core/styles";
-import LoginModal from "./auth/LoginModal";
-import RegisterModal from "./auth/RegisterModal";
-
-const useStyles = makeStyles((theme) => ({
-	appBar: {
-		borderBottom: `1px solid ${theme.palette.divider}`,
-	},
-	toolbar: {
-		flexWrap: "wrap",
-		backgroundColor: "lightgrey",
-	},
-	toolbarTitle: {
-		flexGrow: 1,
-		color: "navy",
-	},
-	link: {
-		margin: theme.spacing(1, 1.5),
-		color: "#aaffcc",
-		border: "1px solid blue",
-		backgroundColor: "darkgrey",
-	},
-}));
+import React, { Component, Fragment } from 'react';
+import AppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
+import LoginModal from './auth/LoginModal';
+import RegisterModal from './auth/RegisterModal';
 
 export default function Pricing() {
-	const classes = useStyles();
-
-	return (
-		<Fragment>
-			<CssBaseline />
-			<AppBar
-				position="static"
-				color="default"
-				elevation={0}
-				className={classes.appBar}
-			>
-				<Toolbar className={classes.toolbar}>
-					<Typography
-						variant="h6"
-						color="inherit"
-						noWrap
-						className={classes.toolbarTitle}
-					>
-						Bitak
-					</Typography>
-					<RegisterModal />
-					<LoginModal />
-				</Toolbar>
-			</AppBar>
-		</Fragment>
-	);
+    return (
+        <Fragment>
+            <CssBaseline />
+            <AppBar
+                position="static"
+                color="default"
+                elevation={0}
+            >
+                <Toolbar>
+                    <Typography
+                        variant="h6"
+                        color="inherit"
+                        noWrap
+                    >
+                        Bitak
+                    </Typography>
+                    <Button>Register</Button>
+                    <Button>Log In</Button>
+                </Toolbar>
+            </AppBar>
+        </Fragment>
+    );
 }

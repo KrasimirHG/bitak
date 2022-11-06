@@ -22,11 +22,7 @@ const db = config.get('mongoURI');
 
 // connect to mongo
 mongoose
-    .connect(db, {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useUnifiedTopology: true
-    })
+    .connect(db)
     .then(() => console.log('connect to mongo'))
     .catch((err) => console.log(err));
 
