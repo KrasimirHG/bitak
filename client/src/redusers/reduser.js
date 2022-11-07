@@ -31,6 +31,13 @@ export default function appReducer(state=initialState, action) {
                 items: state.items.filter(el => el._id !== action.payload)
             }
         };
+        case 'REGISTER_USER' :
+        case 'LOGIN_USER' : {
+            return {
+                ...state,
+                user: action.payload
+            }
+        }
         case 'GET_ERRORS': {
             return {
                 ...state,
