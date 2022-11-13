@@ -1,14 +1,18 @@
 import React from 'react';
-import AppNav from './components/AppNav';
-import ShoppingList from './components/ShoppingList';
-import Box from '@mui/material/Box';
+import { Routes, Route } from 'react-router-dom';
+import Home from './components/Home';
+import SignUp from './components/auth/RegisterModal';
+import SignIn from './components/auth/LoginModal';
+// import DetailReview from './components/DetailReview';
 
 function App() {
     return (
-        <Box>
-            <AppNav />
-            <ShoppingList />
-        </Box>
+        <Routes>
+            <Route path="/" element={ <Home/> } />
+            <Route path="register" element={ <SignUp/> } />
+            <Route path="login" element={ <SignIn/> } />
+            {/* <Route path="detailReview" element={ <DetailReview/> } /> */}
+        </Routes>
     );
 }
 
