@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-import ItemModal from './ItemModal';
 import axios from 'axios';
+import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -23,10 +25,6 @@ import {getItems, deleteItem} from '../actions/itemActions';
 // import store from '../store';
 
 function ReviewCard(props) {
-    // const handleClick = () => {
-    // 	console.log('Opaaaa', props.id)
-    // }
-
     function handleDelete() {
         props.onClick(props.id);
     }
@@ -69,23 +67,16 @@ function ReviewCard(props) {
             </CardActions>
         </Card>
     );
-}
+};
 
-// function ItemGridList(props) {
-// 	const classes = useStyles();
-
-// 	return (
-// 		<div className={classes.root}>
-// 			<GridList cols={3}>
-// 				<ReviewCard
-// 					pic={props.pic}
-// 					name={props.name}
-// 					description={props.description}
-// 				/>
-// 			</GridList>
-// 		</div>
-// 	);
-// }
+ReviewCard.propTypes = {
+    onClick: PropTypes.func,
+    id: PropTypes.string,
+    name: PropTypes.string,
+    date: PropTypes.string,
+    pic: PropTypes.string,
+    description: PropTypes.string
+};
 
 class ShoppingList extends Component {
     constructor(props) {
@@ -109,7 +100,11 @@ class ShoppingList extends Component {
         console.log(products);
         return (
             <div style={{padding: '10px'}}>
-                <ItemModal />
+                <Link style={{ textDecoration: 'none', color: 'inherit' }} to="/addItem">
+                    <Button>
+                        AddItem
+                    </Button>
+                </Link>
                 <Grid container direction="row" spacing={2} justifyContent="flex-end">
                     {products.map((prod) => (
                         <Grid item xs={12} sm={3}>
@@ -126,7 +121,13 @@ class ShoppingList extends Component {
             </div>
         );
     }
-}
+};
+
+ShoppingList.propTypes = {
+    getItems: PropTypes.func,
+    deleteItem: PropTypes.func,
+    items: PropTypes.array
+};
 
 const mapStateToProps = state => {
     return {

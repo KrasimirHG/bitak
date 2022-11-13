@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Container from '@mui/material/Container';
@@ -12,20 +12,15 @@ import TextField from '@mui/material/TextField';
 import PublishIcon from '@mui/icons-material/Publish';
 
 import { addItem } from '../actions/itemActions';
-class ItemModal extends Component {
+class ItemUpload extends Component {
     constructor(props) {
         super();
         this.state = {
-            isVisible: false,
             name: '',
             description: '',
             img: null
         };
     }
-
-    handleUpload = () => {
-        this.setState({ isOpen: !this.state.isVisible });
-    };
 
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
@@ -40,20 +35,12 @@ class ItemModal extends Component {
         e.preventDefault();
         const {name, description, img} = this.state;
         this.props.addItem(name, description, img);
-        this.handleModal();
     };
 
     render() {
-        const style = this.props.isVisible ? {display: 'block'} : {display: 'none'};
         return (
             <Box>
-                <Button
-                    type="button"
-                    onClick={this.handlUpload}
-                >
-                    AddItem
-                </Button>
-                <Container component="main" maxWidth="xs" stayle={style}>
+                <Container component="main" maxWidth="xs">
                     <CssBaseline />
                     <div>
                         <Avatar >
@@ -124,10 +111,14 @@ class ItemModal extends Component {
     }
 }
 
+ItemUpload.propTypes = {
+    addItem: PropTypes.func
+};
+
 const mapStateToProps = state => {
     return {
         items: state.items
     };
 };
 
-export default connect(mapStateToProps, {addItem})(ItemModal);
+export default connect(mapStateToProps, {addItem})(ItemUpload);
