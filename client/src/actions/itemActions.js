@@ -14,12 +14,17 @@ export const getItems = () => async (dispatch) => {
 	})
 }
 
-export const deleteItem = (id) => async (dispatch) => {
-	await axios.delete(`api/items/${id}`)
+export const deleteItem = (id, token) => async (dispatch) => {
+	const config = {
+		headers: {
+			"x-auth-token": token
+		}
+	};
+	const {success} = await axios.delete(`api/items/${id}`, config)
 	.catch((err) =>
 			dispatch(returnErrors(err.response.data, err.response.status))
 		);
-	dispatch({
+	success && dispatch({
 		type: DELETE_ITEM,
 		payload: id,
 	})	
@@ -49,8 +54,8 @@ export const addItem = (name, description, img) => async (dispatch) => {
 		}
 		const config = {
 			headers: {
-				"content-type": "multipart/form-data",
-			},
+				"content-type": "multipart/form-data"
+			}
 		};
 		const result = await axios.post("/api/items", formData, config)
 	    .catch((err) =>

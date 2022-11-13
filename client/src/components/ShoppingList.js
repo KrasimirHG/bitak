@@ -141,7 +141,7 @@ class ShoppingList extends Component {
 	}
 
 	delItem(id) {
-        this.props.deleteItem(id);
+        this.props.deleteItem(id, this.props.token);
 		console.log('PROD_ID IS: ', id)
 	}
 
@@ -176,7 +176,8 @@ class ShoppingList extends Component {
 
 const mapStateToProps = state => {
 	return {
-		items: state.items
+		items: state.items,
+		token: state.user?.token
 	}
 }
 
