@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
 import Box from "@material-ui/core/Box";
@@ -12,6 +13,8 @@ import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { makeStyles } from "@material-ui/core/styles";
+
+import { registerUser } from '../../actions/userActions';
 
 const useStyles = makeStyles((theme) => ({
 	"@global": {
@@ -74,7 +77,9 @@ class ItModal extends Component {
 
 	submitForm = (e) => {
 		e.preventDefault();
+		const { firstName, lastName, email, password } = this.state;
 		console.log("REestriran");
+		this.props.registerUser(firstName, lastName, email, password);
 		this.handleModal();
 	};
 
@@ -104,7 +109,11 @@ class ItModal extends Component {
 							<Typography component="h1" variant="h5">
 								Sign up
 							</Typography>
-							<form className={this.props.form} noValidate>
+							<form
+								className={this.props.form}
+								noValidate
+								onSubmit={this.submitForm}
+							>
 								<Grid container spacing={2}>
 									<Grid item xs={12} sm={6}>
 										<TextField
@@ -156,17 +165,6 @@ class ItModal extends Component {
 											onChange={this.handleChange}
 										/>
 									</Grid>
-									<Grid item xs={12}>
-										<FormControlLabel
-											control={
-												<Checkbox
-													value="allowExtraEmails"
-													color="primary"
-												/>
-											}
-											label="I want to receive inspiration, marketing promotions and updates via email."
-										/>
-									</Grid>
 								</Grid>
 								<Button
 									type="submit"
@@ -174,7 +172,6 @@ class ItModal extends Component {
 									variant="contained"
 									color="primary"
 									className={this.props.submit}
-									onSubmit={this.submitForm}
 								>
 									Sign Up
 								</Button>
@@ -187,7 +184,7 @@ class ItModal extends Component {
 	}
 }
 
-export default function RegisterModal() {
+function RegisterModal(props) {
 	const classes = useStyles();
 	return (
 		<ItModal
@@ -197,6 +194,10 @@ export default function RegisterModal() {
 			avatar={classes.avatar}
 			form={classes.form}
 			submit={classes.submit}
+			registerUser={props.registerUser}
 		/>
 	);
 }
+
+
+export default connect(null, { registerUser })(RegisterModal);

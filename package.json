@@ -25,14 +25,20 @@
   },
   "homepage": "https://github.com/KrasimirHG/bitak#readme",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "concurrently": "^5.3.0",
-    "config": "^3.3.1",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.13.5",
-    "multer": "^1.4.2",
-    "nodemon": "^2.0.12"
-  }
+    "bcryptjs": "2.4.3",
+    "concurrently": "5.3.0",
+    "config": "3.3.1",
+    "cors": "2.8.5",
+    "express": "4.17.1",
+    "jsonwebtoken": "8.5.1",
+    "mongoose": "5.13.5",
+    "multer": "1.4.2",
+    "nodemon": "2.0.12",
+    "react-redux": "8.0.4",
+    "react-router-dom": "6.4.2",
+    "redux": "4.2.0",
+    "redux-thunk": "2.4.1"
+  },
+  "devDependencies": {},
+  "proxy": "http://localhost:5000"
 }

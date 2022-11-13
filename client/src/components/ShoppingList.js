@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import {connect} from 'react-redux';
+import { Link } from "react-router-dom";
+
 import ItemModal from "./ItemModal";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
@@ -13,9 +16,14 @@ import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
+import DeleteIcon from "@material-ui/icons/Delete";
 import GridList from "@material-ui/core/GridList";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Grid from "@material-ui/core/Grid";
+
+import {getItems, deleteItem, selectItem} from '../actions/itemActions';
+
+// import store from '../store';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -31,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 	media: {
 		height: 0,
 		paddingTop: "56.25%", // 16:9
+		cursor: "pointer"
 	},
 
 	avatar: {
@@ -45,6 +54,20 @@ const useStyles = makeStyles((theme) => ({
 function ReviewCard(props) {
 	const classes = useStyles();
 
+	// const handleClick = () => {
+	// 	console.log('Opaaaa', props.id)
+	// }
+
+	function handleDelete() {
+		props.delItem(props.item._id);
+	}
+
+	function handleSelectItem() {
+		props.setItem(props.item)
+	}
+
+	const {name, date, filename, description} = props.item;
+
 	return (
 		<Card className={classes.cardRoot}>
 			<CardHeader
@@ -58,17 +81,20 @@ function ReviewCard(props) {
 						<MoreVertIcon />
 					</IconButton>
 				}
-				title={props.name}
-				subheader={props.date}
+				title={name}
+				subheader={date}
 			/>
+			<Link to="/detailReview">
 			<CardMedia
 				className={classes.media}
-				image={props.pic}
-				title={props.name}
+				image={filename[0]}
+				title={name}
+				onClick={handleSelectItem}
 			/>
+			</Link> |{" "}
 			<CardContent>
 				<Typography variant="body2" color="textSecondary" component="p">
-					{props.description}
+					{description}
 					This impressive paella is a perfect party dish and a fun
 					meal to cook together with your guests. Add 1 cup of frozen
 					peas along with the mussels, if you like.
@@ -78,8 +104,8 @@ function ReviewCard(props) {
 				<IconButton aria-label="add to favorites">
 					<FavoriteIcon />
 				</IconButton>
-				<IconButton aria-label="share">
-					<ShareIcon />
+				<IconButton aria-label="delete">
+					<DeleteIcon onClick={handleDelete}/>
 				</IconButton>
 			</CardActions>
 		</Card>
@@ -103,17 +129,28 @@ function ItemGridList(props) {
 }
 
 class ShoppingList extends Component {
-	state = {
-		stoka: [],
-	};
+	constructor(props){
+		super();
+		this.state = {
+			stoka: [],
+		};
+	}
+	
 	componentDidMount() {
-		axios.get("http://localhost:5000/api/items").then((res) => {
-			this.setState({ stoka: res.data });
-		});
+		this.props.getItems();
+	}
+
+	delItem(id) {
+        this.props.deleteItem(id, this.props.token);
+		console.log('PROD_ID IS: ', id)
+	}
+
+	setItem(item) {
+		this.props.selectItem(item);
 	}
 
 	render() {
-		const products = this.state.stoka;
+		const products = this.props.items;
 		console.log(products);
 		return (
 			<div style={{padding: '10px'}}>
@@ -122,9 +159,12 @@ class ShoppingList extends Component {
 					{products.map((prod) => (
 						<Grid item xs={12} sm={3}>
 							<ReviewCard
-								pic={prod.filename[0]}
-								name={prod.name}
-								description={prod.description}
+								// pic={prod.filename[0]}
+								// name={prod.name}
+								// description={prod.description}
+								item={prod}
+								delItem={() => this.delItem(prod._id)}
+								setItem={() => this.setItem(prod)}
 							/>
 						</Grid>
 					))}
@@ -134,4 +174,11 @@ class ShoppingList extends Component {
 	}
 }
 
-export default ShoppingList;
+const mapStateToProps = state => {
+	return {
+		items: state.items,
+		token: state.user?.token
+	}
+}
+
+export default connect(mapStateToProps, {getItems, deleteItem, selectItem})(ShoppingList);

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
+
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,6 +14,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 // import { styled } from "@material-ui/core/styles";
+
+import {loginUser} from '../../actions/userActions';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -97,7 +101,7 @@ function SignIn(props) {
   );
 }
 
-export default class LoginModal extends Component {
+class LoginModal extends Component {
   state = {
     isOpen: false,
     email: "",
@@ -114,6 +118,7 @@ export default class LoginModal extends Component {
 
   submitForm = (e) => {
     e.preventDefault();
+    this.props.loginUser(this.state.email, this.state.password);
     console.log("Lognat");
     this.handleModal();
   };
@@ -144,3 +149,5 @@ export default class LoginModal extends Component {
     );
   }
 }
+
+export default connect(null, {loginUser})(LoginModal);

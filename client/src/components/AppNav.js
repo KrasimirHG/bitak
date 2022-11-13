@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { connect } from 'react-redux';
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function Pricing() {
+function NavBar(props) {
 	const classes = useStyles();
 
 	return (
@@ -50,10 +51,21 @@ export default function Pricing() {
 					>
 						Bitak
 					</Typography>
+					{ props.user?.token ? 
+					<h4>LogOut</h4> : <>
 					<RegisterModal />
 					<LoginModal />
+					</> }	
 				</Toolbar>
 			</AppBar>
 		</Fragment>
 	);
 }
+
+const mapStateToProps = state => {
+	return {
+		user: state.user
+	}
+};
+
+export default connect(mapStateToProps)(NavBar);

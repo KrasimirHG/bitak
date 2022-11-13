@@ -19,14 +19,22 @@ router.post("/", (req, res) => {
 		return res.status(400).json({ msg: "Please enter all fields" });
 	}
 	//Check for existing user
-	User.findOne({ email }).then((user) => {
-		if (!user) return res.status(400).json({ msg: "User do not exist" });
+	// User.findOne({ email }).then((user) => {
+	// 	if (!user) return res.status(400).json({ msg: "User do not exist" });
 
-		//Validate password
-		bcrypt.compare(password, user.password).then((isMatch) => {
-			if (!isMatch)
-				return res.status(400).json({ msg: "Bad credentials" });
-		});
+	// 	//Validate password
+	// 	bcrypt.compare(password, user.password).then((isMatch) => {
+	// 		if (!isMatch)
+	// 			return res.status(400).json({ msg: "Bad credentials" });
+	// 	})
+	// async function findUser(email) {
+		const findUser = async (email) => {  	
+		// Check for existing user
+         const user = await User.findOne({ email });
+		 if (!user) return res.status(400).json({ msg: "User do not exist" });
+		 // Validate password
+		 const isMatch = await bcrypt.compare(password, user.password);
+		 if (!isMatch) return res.status(400).json({ msg: "Bad credentials" });
 
 		jwt.sign(
 			{ id: user.id },
@@ -38,13 +46,15 @@ router.post("/", (req, res) => {
 					token,
 					user: {
 						id: user.id,
-						name: user.name,
+						firstName: user.firstName,
+						lastName: user.lastName,
 						email: user.email,
 					},
 				});
 			}
 		);
-	});
+	};
+	findUser(email);
 });
 
 //@route  GET api/auth/user
