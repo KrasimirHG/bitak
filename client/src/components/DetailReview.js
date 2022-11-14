@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import Carousel from 'react-material-ui-carousel';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Image from "material-ui-image";
