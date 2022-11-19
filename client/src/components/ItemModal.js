@@ -94,6 +94,7 @@ class ItModal extends Component {
 				>
 					AddItem
 				</Button>
+				{/* <a href='http://localhost:5000/api/users/verifyOtp?email=as@he.com&otp=3UTyhC'>Click me</a> */}
 				<Modal
 					open={this.state.isOpen}
 					onClose={this.handleModal}

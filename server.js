@@ -33,6 +33,7 @@ mongoose
 // use routes
 app.use('/api/items', require('./routes/api/items'));
 app.use('/api/users', require('./routes/api/users'));
+app.use('/api/users/verifyOtp', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 
 // Serve static asserts if inproduction
