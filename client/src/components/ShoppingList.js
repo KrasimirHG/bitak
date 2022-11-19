@@ -105,6 +105,7 @@ class ShoppingList extends Component {
                         AddItem
                     </Button>
                 </Link>
+                <a href='http://localhost:5000/api/auth/user?email=myEmail&password=myPass'>Click Me</a>
                 <Grid container direction="row" spacing={2} justifyContent="flex-end">
                     {products.map((prod) => (
                         <Grid item xs={12} sm={3}>
