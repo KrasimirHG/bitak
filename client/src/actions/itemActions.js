@@ -57,7 +57,7 @@ export const addItem = (name, description, img) => async(dispatch) => {
         }
     };
     const result = await axios.post('/api/items', formData, config)
-	    .catch((err) =>
+        .catch((err) =>
             dispatch(returnErrors(err.response.data, err.response.status))
         );
     dispatch({

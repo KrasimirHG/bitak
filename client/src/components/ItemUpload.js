@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+import { Navigate } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -10,8 +13,12 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import PublishIcon from '@mui/icons-material/Publish';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { addItem } from '../actions/itemActions';
+
+const theme = createTheme();
+
 class ItemUpload extends Component {
     constructor(props) {
         super();
@@ -35,15 +42,24 @@ class ItemUpload extends Component {
         e.preventDefault();
         const {name, description, img} = this.state;
         this.props.addItem(name, description, img);
+        // this.setState({shouldRediretToHome: true});
     };
 
     render() {
+        if (this.props.shouldRedirect) return <Navigate replace to='/'/>;
         return (
-            <Box>
+            <ThemeProvider theme={theme}>
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />
-                    <div>
-                        <Avatar >
+                    <Box
+                        sx={{
+                            marginTop: 8,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center'
+                        }}
+                    >
+                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                             <PublishIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">
@@ -104,20 +120,22 @@ class ItemUpload extends Component {
                                 Upload
                             </Button>
                         </form>
-                    </div>
+                    </Box>
                 </Container>
-            </Box>
+            </ThemeProvider>
         );
     }
 }
 
 ItemUpload.propTypes = {
-    addItem: PropTypes.func
+    addItem: PropTypes.func,
+    shouldRedirect: PropTypes.bool
 };
 
 const mapStateToProps = state => {
     return {
-        items: state.items
+        items: state.items,
+        shouldRedirect: state.shouldRedirect
     };
 };
 

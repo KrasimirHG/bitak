@@ -19,7 +19,7 @@ export default function ButtonAppBar() {
                     <Link style={{ textDecoration: 'none', color: 'inherit' }} to="/register">
                         <Button color="inherit" >Register</Button>
                     </Link>
-                    <Link style={{ textDecoration: 'none', color: 'inherit' }}to="/register">
+                    <Link style={{ textDecoration: 'none', color: 'inherit' }}to="/login">
                         <Button color="inherit" >Log In</Button>
                     </Link>
                 </Toolbar>

@@ -51,7 +51,7 @@ router.post('/', (req, res) => {
 // @access private
 router.get('/user', (req, res) => {
     const url = req.url;
-	res.json({msg: 'AAAAAAA'});
+    res.json({msg: 'AAAAAAA'});
     // User.findById(req.user.id)
     //     .select('-password')
     //     .then((user) => res.json(user));

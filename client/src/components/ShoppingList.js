@@ -34,7 +34,7 @@ function ReviewCard(props) {
             <CardHeader
                 avatar={
                     <Avatar aria-label="recipe">
-                        R
+                        {props.name[0]}
                     </Avatar>
                 }
                 action={
@@ -46,8 +46,11 @@ function ReviewCard(props) {
                 subheader={props.date}
             />
             <CardMedia
+                component='img'
+                height='210'
                 image={props.pic}
                 title={props.name}
+                alt={props.name}
             />
             <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">
@@ -105,8 +108,7 @@ class ShoppingList extends Component {
                         AddItem
                     </Button>
                 </Link>
-                <a href='http://localhost:5000/api/auth/user?email=myEmail&password=myPass'>Click Me</a>
-                <Grid container direction="row" spacing={2} justifyContent="flex-end">
+                <Grid container direction="row" spacing={2} justifyContent="flex-start">
                     {products.map((prod) => (
                         <Grid item xs={12} sm={3}>
                             <ReviewCard

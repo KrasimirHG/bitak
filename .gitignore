@@ -43,6 +43,9 @@ jspm_packages/
 
 package-lock.json
 
+# upload directories
+uploads/
+
 # TypeScript v1 declaration files
 typings/
 
