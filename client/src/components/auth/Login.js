@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -7,7 +8,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import Modal from "@material-ui/core/Modal";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
@@ -19,7 +19,7 @@ import {loginUser} from '../../actions/userActions';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    backgroundColor: 'darkgrey',
+    backgroundColor: 'white',
     padding: theme.spacing(2),
     marginTop: theme.spacing(8),
     display: "flex",
@@ -36,12 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-  },
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  }
 }));
 
 function SignIn(props) {
@@ -103,13 +98,8 @@ function SignIn(props) {
 
 class LoginModal extends Component {
   state = {
-    isOpen: false,
     email: "",
     password: "",
-  };
-
-  handleModal = () => {
-    this.setState({ isOpen: !this.state.isOpen });
   };
 
   handleChange = (e) => {
@@ -119,35 +109,25 @@ class LoginModal extends Component {
   submitForm = (e) => {
     e.preventDefault();
     this.props.loginUser(this.state.email, this.state.password);
-    console.log("Lognat");
-    this.handleModal();
   };
 
   render() {
+    if (this.props.shouldRedirect) return <Navigate replace to='/'/>;
     return (
       <Box>
-        <Button
-          type="button"
-          className={this.props.button}
-          onClick={this.handleModal}
-        >
-          Log In
-        </Button>
-        <Modal
-          open={this.state.isOpen}
-          onClose={this.handleModal}
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-          className={this.props.modal}
-        >
           <SignIn
             handleChange={this.handleChange}
             submitForm={this.submitForm}
           />
-        </Modal>
       </Box>
     );
   }
 }
 
-export default connect(null, {loginUser})(LoginModal);
+const mapStateToProps = state => {
+  return {
+    shouldRedirect: state.shouldRedirect
+  }
+}
+
+export default connect(mapStateToProps, {loginUser})(LoginModal);

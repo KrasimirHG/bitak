@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {connect} from 'react-redux';
 import { Link } from "react-router-dom";
 
-import ItemModal from "./ItemModal";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -54,10 +53,6 @@ const useStyles = makeStyles((theme) => ({
 function ReviewCard(props) {
 	const classes = useStyles();
 
-	// const handleClick = () => {
-	// 	console.log('Opaaaa', props.id)
-	// }
-
 	function handleDelete() {
 		props.delItem(props.item._id);
 	}
@@ -73,7 +68,7 @@ function ReviewCard(props) {
 			<CardHeader
 				avatar={
 					<Avatar aria-label="recipe" className={classes.avatar}>
-						R
+						{name[0]}
 					</Avatar>
 				}
 				action={
@@ -91,7 +86,7 @@ function ReviewCard(props) {
 				title={name}
 				onClick={handleSelectItem}
 			/>
-			</Link> |{" "}
+			</Link>
 			<CardContent>
 				<Typography variant="body2" color="textSecondary" component="p">
 					{description}
@@ -154,7 +149,6 @@ class ShoppingList extends Component {
 		console.log(products);
 		return (
 			<div style={{padding: '10px'}}>
-				<ItemModal />
 				<Grid container direction="row" spacing={2} justifyContent="flex-end">
 					{products.map((prod) => (
 						<Grid item xs={12} sm={3}>

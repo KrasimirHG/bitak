@@ -6,7 +6,7 @@ import Box from "@material-ui/core/Box";
 function Home() {
   return (
     <Box>
-      <AppNav />
+      {/* <AppNav /> */}
       <ShoppingList />
     </Box>
   )

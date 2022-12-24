@@ -1,4 +1,4 @@
-import { REGISTER_USER, LOGIN_USER } from "./types";
+import { REGISTER_USER, LOGIN_USER, LOGOUT_USER } from "./types";
 import axios from "axios";
 import { returnErrors } from "./errorActions";
 
@@ -24,4 +24,10 @@ export const loginUser = (email, password) => async dispatch => {
 				type: LOGIN_USER,
 				payload: result.data,
 			})	
+}
+
+export const logoutUser = () => dispatch => {
+	dispatch({
+		type: LOGOUT_USER
+	})
 }
