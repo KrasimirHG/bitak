@@ -11,7 +11,7 @@ export default function appReducer(state=initialState, action) {
         case 'GET_ITEMS': {
             return {
                 ...state,
-                items: [...action.payload],
+                items: [...action.payload.data],
                 shouldRedirect: false
             }
         };
