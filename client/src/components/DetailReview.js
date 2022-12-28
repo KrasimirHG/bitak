@@ -9,21 +9,6 @@ import ImageGallery from 'react-image-gallery';
 
 import { deleteItem } from '../actions/itemActions';
 
-// function Item(props)
-// {
-//     return (
-//         <Paper>
-//             <Image src={props.pic} />
-//             <h2>{props.picName}</h2>
-//             <p>{props.description}</p>
-
-//             <Box className="CheckButton">
-//                 Check it out!
-//             </Box>
-//         </Paper>
-//     )
-// }
-
 class DetailReview extends Component {
     constructor() {
         super();

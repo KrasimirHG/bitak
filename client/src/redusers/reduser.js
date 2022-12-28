@@ -11,7 +11,9 @@ export default function appReducer(state=initialState, action) {
         case 'GET_ITEMS': {
             return {
                 ...state,
-                items: [...action.payload.data],
+                // items: [...action.payload],
+                items: [...action.payload.items],
+                user: action.payload.user,
                 shouldRedirect: false
             }
         };
@@ -45,7 +47,8 @@ export default function appReducer(state=initialState, action) {
         case 'LOGOUT_USER' :
             return {
                 ...state,
-                user: {}
+                user: {},
+                shouldRedirect: true
             }
         case 'GET_ERRORS': {
             return {

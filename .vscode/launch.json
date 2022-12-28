@@ -11,6 +11,18 @@
             "type": "node-terminal"
         },
         {
+            "command": "npm run server",
+            "name": "Run server",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
+            "command": "npm run client",
+            "name": "Run client",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
             "type": "node",
             "request": "launch",
             "name": "Launch Program",

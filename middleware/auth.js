@@ -1,6 +1,24 @@
 const config = require('config');
 const jwt = require('jsonwebtoken');
 
+function authCookie(req, res, next) {
+    const token = req.cookies?.jwt || 'aaaaaaaaa';
+
+    try {
+        // Verify token
+        const decoded = jwt.verify(token, config.get('jwtSecret'));
+
+        // Add user from payload
+        req.user = decoded;
+        next();
+    } catch (e) {
+        console.log('token is not valid', e);
+        next();
+    }
+
+
+} 
+
 function auth(req, res, next) {
     const token = req.header('x-auth-token');
 
@@ -21,4 +39,4 @@ function auth(req, res, next) {
     }
 }
 
-module.exports = auth;
+module.exports = { auth, authCookie }

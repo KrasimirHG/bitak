@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import {connect} from 'react-redux';
 import { Link } from "react-router-dom";
 
-import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -14,7 +13,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
 import DeleteIcon from "@material-ui/icons/Delete";
 import GridList from "@material-ui/core/GridList";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
@@ -22,7 +20,6 @@ import Grid from "@material-ui/core/Grid";
 
 import {getItems, deleteItem, selectItem} from '../actions/itemActions';
 
-// import store from '../store';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -137,7 +134,6 @@ class ShoppingList extends Component {
 
 	delItem(id) {
         this.props.deleteItem(id, this.props.token);
-		console.log('PROD_ID IS: ', id)
 	}
 
 	setItem(item) {
@@ -146,16 +142,13 @@ class ShoppingList extends Component {
 
 	render() {
 		const products = this.props.items;
-		console.log(products);
+		console.log(products)
 		return (
 			<div style={{padding: '10px'}}>
 				<Grid container direction="row" spacing={2} justifyContent="flex-end">
 					{products.map((prod) => (
 						<Grid item xs={12} sm={3}>
 							<ReviewCard
-								// pic={prod.filename[0]}
-								// name={prod.name}
-								// description={prod.description}
 								item={prod}
 								delItem={() => this.delItem(prod._id)}
 								setItem={() => this.setItem(prod)}
@@ -171,7 +164,7 @@ class ShoppingList extends Component {
 const mapStateToProps = state => {
 	return {
 		items: state.items,
-		token: state.user?.token
+		token: state.user?.token,
 	}
 }
 

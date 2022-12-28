@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../../middleware/auth');
 const multer = require('multer');
 const fs = require('fs');
+const { auth, authCookie } = require('../../middleware/auth');
 
 // SET STORAGE
 const storage = multer.diskStorage({
@@ -29,18 +29,43 @@ const upload = multer({ storage });
 // 	});
 // };
 
-// item Model
+// Item Model
 const Item = require('../../models/Item');
+// User Model
+const User = require('../../models/User');
 
 const port = process.env.PORT || 5000;
 
 // @route  GET api/items
 // @desc   get all Items
 // @access public
-router.get('/', (req, res) => {
-    Item.find()
-        .sort({ date: -1 })
-        .then((items) => res.json(items));
+router.get('/', authCookie, async (req, res) => {
+// router.get('/', async (req, res) => {
+
+    // Item.find()
+    //     .sort({ date: -1 })
+    //     .then((items) => res.json(items));
+
+    // const items = await Item.find().sort({ date: -1 });
+    // res.json(items);
+
+    // if (req?.user?.id) {
+    //     User.findById(req.user.id)
+    //     .select('-password')
+    //     .then((user) => res.json(user));
+    // }
+    try {
+        const items = await Item.find().sort({ date: -1 });
+        let user = {};
+        if (req.user?.id) {
+            user = await User.findById(req.user.id).select('-password')
+        }
+        const result = {items, user: {token: req.cookies?.jwt, user}};
+        res.json(result);
+    } catch (error) {
+       console.log('THE ERROR IS: ', error)
+    }
+    
 });
 
 // @route  POST api/items
