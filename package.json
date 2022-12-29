@@ -28,17 +28,23 @@
     "bcryptjs": "2.4.3",
     "concurrently": "5.3.0",
     "config": "3.3.1",
+    "cookie-parser": "^1.4.6",
     "cors": "2.8.5",
     "express": "4.17.1",
     "jsonwebtoken": "8.5.1",
     "mongoose": "5.13.5",
     "multer": "1.4.2",
+    "nodemailer": "^6.8.0",
     "nodemon": "2.0.12",
+    "otp-generator": "^4.0.0",
     "react-redux": "8.0.4",
     "react-router-dom": "6.4.2",
     "redux": "4.2.0",
     "redux-thunk": "2.4.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
+  },
   "proxy": "http://localhost:5000"
 }

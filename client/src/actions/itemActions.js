@@ -1,6 +1,7 @@
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, SELECT_ITEM } from "./types";
 import axios from "axios";
 import { returnErrors } from "./errorActions";
+import { loginUser } from './userActions';
 
 export const getItems = () => async (dispatch) => {
 	// dispatch(setItemsLoading());
@@ -8,9 +9,15 @@ export const getItems = () => async (dispatch) => {
 	.catch((err) =>
 			dispatch(returnErrors(err.response.data, err.response.status))
 		);
+		// const fullData = {data: result.data, cookies: document.cookie}
+		// console.log('DATA+COOKIE', fullData);
+		// if (fullData.cookies) {
+		// 	const cookies = fullData.cookies.split('=');
+		// 	dispatch(loginUser(cookies[1].split(';')[0], cookies[2]));
+		// }
 	dispatch({
 		type: GET_ITEMS,
-		payload: result.data,
+		payload: result.data
 	})
 }
 

@@ -2,7 +2,8 @@ const initialState = {
     items: [],
     user: {},
     errors: {},
-    selectedItem: {}
+    selectedItem: {},
+    shouldRedirect: false
 };
 
 export default function appReducer(state=initialState, action) {
@@ -10,13 +11,17 @@ export default function appReducer(state=initialState, action) {
         case 'GET_ITEMS': {
             return {
                 ...state,
-                items: [...action.payload]
+                // items: [...action.payload],
+                items: [...action.payload.items],
+                user: action.payload.user,
+                shouldRedirect: false
             }
         };
         case 'ADD_ITEM': {
             return {
                 ...state,
-                items: [...state.items, action.payload]
+                items: [...state.items, action.payload],
+                shouldRedirect: true
             }
         };
         case 'SELECT_ITEM': {
@@ -35,9 +40,16 @@ export default function appReducer(state=initialState, action) {
         case 'LOGIN_USER' : {
             return {
                 ...state,
-                user: action.payload
+                user: action.payload,
+                shouldRedirect: true
             }
         }
+        case 'LOGOUT_USER' :
+            return {
+                ...state,
+                user: {},
+                shouldRedirect: true
+            }
         case 'GET_ERRORS': {
             return {
                 ...state,

@@ -1,33 +1,37 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
-import { makeStyles } from "@material-ui/core/styles";
-import LoginModal from "./auth/LoginModal";
-import RegisterModal from "./auth/RegisterModal";
+
+import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+
+import { logoutUser } from '../actions/userActions'
 
 const useStyles = makeStyles((theme) => ({
 	appBar: {
 		borderBottom: `1px solid ${theme.palette.divider}`,
 	},
 	toolbar: {
-		flexWrap: "wrap",
-		backgroundColor: "lightgrey",
+		flexWrap: 'wrap',
+		backgroundColor: 'lightgrey',
 	},
 	toolbarTitle: {
 		flexGrow: 1,
-		color: "navy",
+		color: 'navy',
 	},
 	link: {
 		margin: theme.spacing(1, 1.5),
-		color: "#aaffcc",
-		border: "1px solid blue",
-		backgroundColor: "darkgrey",
+		color: '#aaffcc',
+		border: '1px solid blue',
+		backgroundColor: 'darkgrey',
 	},
+	item: {
+		margin: theme.spacing(1)
+	}
 }));
 
 function NavBar(props) {
@@ -37,25 +41,40 @@ function NavBar(props) {
 		<Fragment>
 			<CssBaseline />
 			<AppBar
-				position="static"
-				color="default"
+				position='static'
+				color='default'
 				elevation={0}
 				className={classes.appBar}
 			>
 				<Toolbar className={classes.toolbar}>
 					<Typography
-						variant="h6"
-						color="inherit"
+						variant='h6'
+						color='inherit'
 						noWrap
 						className={classes.toolbarTitle}
 					>
+						<Link style={{ textDecoration: 'none', color: 'inherit' }} to='/'>
 						Bitak
+						</Link>
 					</Typography>
-					{ props.user?.token ? 
-					<h4>LogOut</h4> : <>
-					<RegisterModal />
-					<LoginModal />
-					</> }	
+					<Link style={{ textDecoration: 'none', color: 'inherit' }} to='/addItem'>
+							<Button variant='contained' color='primary' className={classes.item}>Add Item</Button>
+						</Link>
+					{props.user?.token ?
+					    <>
+					    <h4>Hello, {props.user.user.firstName}</h4>
+						<Link style={{ textDecoration: 'none', color: 'inherit' }} to='/'>
+							<Button color='inherit' onClick={props.logoutUser}>Logout</Button>
+						</Link>
+						</>
+						: <>
+							<Link style={{ textDecoration: 'none', color: 'inherit' }} to='/register'>
+								<Button color='inherit' >Register</Button>
+							</Link>
+							<Link style={{ textDecoration: 'none', color: 'inherit' }} to='/login'>
+								<Button color='inherit' >Log In</Button>
+							</Link>
+						</>}
 				</Toolbar>
 			</AppBar>
 		</Fragment>
@@ -68,4 +87,4 @@ const mapStateToProps = state => {
 	}
 };
 
-export default connect(mapStateToProps)(NavBar);
+export default connect(mapStateToProps, { logoutUser })(NavBar);
