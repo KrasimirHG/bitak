@@ -10,9 +10,14 @@ function authCookie(req, res, next) {
 
         // Add user from payload
         req.user = decoded;
-        next();
+        // next();
     } catch (e) {
         console.log('token is not valid', e);
+        // next();
+        if (e.name === 'TokenExpiredError') {
+            req.shouldClearCookies = true;
+        }
+    } finally {
         next();
     }
 

@@ -58,9 +58,11 @@ router.get('/', authCookie, async (req, res) => {
         const items = await Item.find().sort({ date: -1 });
         let user = {};
         if (req.user?.id) {
-            user = await User.findById(req.user.id).select('-password')
+            const currentUser = await User.findById(req.user.id).select('-password');
+            user = {token: req.cookies?.jwt, user: currentUser};
         }
-        const result = {items, user: {token: req.cookies?.jwt, user}};
+        const result = {items, user};
+        if (req.shouldClearCookies) res.clearCookie('jwt', { path: '/' });
         res.json(result);
     } catch (error) {
        console.log('THE ERROR IS: ', error)

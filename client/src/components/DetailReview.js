@@ -6,6 +6,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Image from "material-ui-image";
 import ImageGallery from 'react-image-gallery';
+import "react-image-gallery/styles/css/image-gallery.css";
 
 import { deleteItem } from '../actions/itemActions';
 

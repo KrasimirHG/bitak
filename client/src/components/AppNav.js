@@ -57,11 +57,11 @@ function NavBar(props) {
 						Bitak
 						</Link>
 					</Typography>
-					<Link style={{ textDecoration: 'none', color: 'inherit' }} to='/addItem'>
-							<Button variant='contained' color='primary' className={classes.item}>Add Item</Button>
-						</Link>
 					{props.user?.token ?
 					    <>
+						<Link style={{ textDecoration: 'none', color: 'inherit' }} to='/addItem'>
+							<Button variant='contained' color='primary' className={classes.item}>Add Item</Button>
+						</Link>
 					    <h4>Hello, {props.user.user.firstName}</h4>
 						<Link style={{ textDecoration: 'none', color: 'inherit' }} to='/'>
 							<Button color='inherit' onClick={props.logoutUser}>Logout</Button>
