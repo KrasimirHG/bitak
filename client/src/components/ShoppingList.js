@@ -14,6 +14,7 @@ import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import DeleteIcon from "@material-ui/icons/Delete";
+import MoneyIcon from "@material-ui/icons/Money";
 import GridList from "@material-ui/core/GridList";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Grid from "@material-ui/core/Grid";
@@ -99,6 +100,7 @@ function ReviewCard(props) {
 				<IconButton aria-label="delete">
 					<DeleteIcon onClick={handleDelete}/>
 				</IconButton>
+				<h4>Price: {props.item.price}</h4>
 			</CardActions>
 		</Card>
 	);

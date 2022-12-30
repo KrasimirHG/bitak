@@ -50,11 +50,13 @@ export const setItemsLoading = () => (dispatch) => {
 	};
 };
 
-export const addItem = (name, description, img) => async (dispatch) => {
+export const addItem = (name, description, img, price, userId) => async (dispatch) => {
 	const formData = new FormData();
 
 		formData.append("itemName", name);
 		formData.append("itemDesc", description);
+		formData.append("userId", userId);
+		formData.append("price", price);
 		const files = img;
 		for (let i = 0; i < files.length; i++) {
 			formData.append("pictures", files[i]);

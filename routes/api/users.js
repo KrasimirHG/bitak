@@ -63,13 +63,7 @@ router.post('/', (req, res) => {
               });
               res.json({
                 token,
-                user: {
-                  id: user.id,
-                  firstName: user.firstName,
-                  lastName: user.lastName,
-                  email: user.email,
-                  isActive,
-                },
+                user
               });
             },
           );

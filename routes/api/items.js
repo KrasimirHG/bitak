@@ -88,7 +88,9 @@ router.post('/', upload.array('pictures', 6), (req, res, next) => {
         name: req.body.itemName,
         description: req.body.itemDesc,
         filename: imgNames,
-        filepath: imgPaths
+        filepath: imgPaths,
+        price: req.body.price,
+        createdBy: req.body.userId
     });
 
     if (!req.files) {

@@ -53,8 +53,9 @@ class ItAdd extends Component {
 	constructor(props) {
 		super();
 		this.state = {
-			name: "",
-			description: "",
+			name: '',
+			description: '',
+			price: '',
 			img: null,
 		};
 	}
@@ -73,8 +74,8 @@ class ItAdd extends Component {
 
 	onSubmit = (e) => {
 		e.preventDefault();
-		const { name, description, img } = this.state;
-		this.props.addItem(name, description, img);
+		const { name, description, img, price } = this.state;
+		this.props.addItem(name, description, img, price, this.props.userId);
 	};
 
 	render() {
@@ -106,6 +107,19 @@ class ItAdd extends Component {
 										fullWidth
 										id="name"
 										label="name"
+										autoFocus
+										onChange={this.onChange}
+									/>
+								</Grid>
+								<Grid item xs={12} sm={6}>
+									<TextField
+										autoComplete="price"
+										name="price"
+										variant="outlined"
+										required
+										fullWidth
+										id="price"
+										label="price"
 										autoFocus
 										onChange={this.onChange}
 									/>
@@ -174,8 +188,9 @@ function ItemAdd(props) {
 const mapStateToProps = state => {
 	return {
 		items: state.items,
-		shouldRedirect: state.shouldRedirect
+		shouldRedirect: state.shouldRedirect,
+		userId: state.user?.user?._id
 	}
 }
 
-export default connect(mapStateToProps, { addItem })(ItemAdd);
+export default connect(mapStateToProps, { addItem, ItAdd })(ItemAdd);

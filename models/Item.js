@@ -14,7 +14,11 @@ const ItemSchema = new Schema({
         type: String
     },
     filename: [String],
-    filepath: [String]
+    filepath: [String],
+    price: [String],
+    createdBy: {
+        type: String
+    }
 });
 
 module.exports = Item = mongoose.model('item', ItemSchema);
