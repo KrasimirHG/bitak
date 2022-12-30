@@ -33,7 +33,8 @@ export const loginUser = (email, password) => async dispatch => {
 			})
 			// document.cookie = `email=${email}; expires=${futureDate}; path=/`;
 			// document.cookie = `password=${password}; expires=${futureDate}; path=/`;
-		}
+};
+
 export const logoutUser = () => async dispatch => {
 	const date = new Date();
 	date.setDate(date.getDate() - 1);
