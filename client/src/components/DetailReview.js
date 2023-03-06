@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Image from "material-ui-image";
 import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
@@ -13,6 +14,30 @@ import { deleteItem } from '../actions/itemActions';
 class DetailReview extends Component {
     constructor() {
         super();
+        this.state = {
+            lat: '',
+            long: '',
+            geoError: ''
+        }
+    }
+
+    componentDidMount() {
+        this.getLocation();
+    }
+    
+    getLocation = () => {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(this.showPosition);
+        } else { 
+          this.setState({geoError: 'Geolocation is not supported by this browser.'});
+        }
+      };
+
+    showPosition = (position) => {
+        this.setState({
+            lat: position.coords.latitude,
+            long: position.coords.longitude
+        })
     }
 
     render() {
@@ -26,6 +51,8 @@ class DetailReview extends Component {
             thumbnail: img, originalWidth: '600px', thumbnailWidth: '150px'
         }));
 
+        const { firstName, lastName, email, phoneNumber} = this.props.user;
+
         return (
             <Grid container spacing={3}>
                 <Grid item xs={8}>
@@ -38,8 +65,19 @@ class DetailReview extends Component {
                     </Container>
                 </Grid>
                 <Grid item xs={4}>
-                    <Container>
-                        <h3>User Section</h3>
+                    <Container component="main" maxWidth="xs">
+                    <CssBaseline />
+                        <h3>Published By:</h3>
+                        <h4>{firstName} {lastName}</h4>
+                        <h4>Email: {email}</h4>
+                        <h4>Phone: {phoneNumber}</h4>
+                        <h4>Location: </h4>
+                        {this.state.geoError ? <h4>{this.setState.geoError}</h4> :
+                            <div>
+                            <h4>Latitude: {this.state.lat}</h4>
+                            <h4>Longtitude: {this.state.long}</h4>
+                            </div>
+                        }
                     </Container>
                 </Grid>
             </Grid>
@@ -49,7 +87,8 @@ class DetailReview extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        item: state.selectedItem
+        item: state.selectedItem,
+        user: state.user?.user
     }
 }
 

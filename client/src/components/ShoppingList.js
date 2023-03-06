@@ -83,6 +83,7 @@ function ReviewCard(props) {
 				image={filename[0]}
 				title={name}
 				onClick={handleSelectItem}
+				disabled={!props.user}
 			/>
 			</Link>
 			<CardContent>
@@ -144,16 +145,18 @@ class ShoppingList extends Component {
 
 	render() {
 		const products = this.props.items;
-		console.log(products)
+		const style = !this.props.user ? {pointerEvents: 'none'} : {}
 		return (
 			<div style={{padding: '10px'}}>
-				<Grid container direction="row" spacing={2} justifyContent="flex-end">
+				<Grid container direction="row" spacing={2} justifyContent="flex-end" style = {style}>
 					{products.map((prod) => (
 						<Grid item xs={12} sm={3}>
 							<ReviewCard
 								item={prod}
+								user={this.props.user}
 								delItem={() => this.delItem(prod._id)}
 								setItem={() => this.setItem(prod)}
+								disabled={!this.props.user}
 							/>
 						</Grid>
 					))}
@@ -167,6 +170,7 @@ const mapStateToProps = state => {
 	return {
 		items: state.items,
 		token: state.user?.token,
+		user: state.user.user
 	}
 }
 

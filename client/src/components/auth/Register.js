@@ -59,6 +59,7 @@ class ItModal extends Component {
 			lastName: "",
 			email: "",
 			password: "",
+			phoneNumber: ""
 		};
 	}
 
@@ -125,6 +126,18 @@ class ItModal extends Component {
 										label="Email Address"
 										name="email"
 										autoComplete="email"
+										onChange={this.handleChange}
+									/>
+								</Grid>
+								<Grid item xs={12}>
+									<TextField
+										variant="outlined"
+										required
+										fullWidth
+										id="phoneNumber"
+										label="Phone Number"
+										name="phoneNumber"
+										autoComplete="phoneNumber"
 										onChange={this.handleChange}
 									/>
 								</Grid>

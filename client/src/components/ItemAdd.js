@@ -59,9 +59,6 @@ class ItAdd extends Component {
 			img: null,
 		};
 	}
-	handleModal = () => {
-		this.setState({ isOpen: !this.state.isOpen });
-	};
 
 	onChange = (e) => {
 		this.setState({ [e.target.name]: e.target.value });
@@ -180,6 +177,7 @@ function ItemAdd(props) {
 			avatar={classes.avatar}
 			form={classes.form}
 			submit={classes.submit}
+			userId={props.userId}
 			addItem={props.addItem}
 		/>
 	);
@@ -193,4 +191,4 @@ const mapStateToProps = state => {
 	}
 }
 
-export default connect(mapStateToProps, { addItem, ItAdd })(ItemAdd);
+export default connect(mapStateToProps, { addItem })(ItemAdd);
