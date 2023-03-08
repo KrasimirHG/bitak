@@ -1,4 +1,4 @@
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, SELECT_ITEM } from "./types";
+import { GET_ITEMS, GET_ITEMS_BY_USER, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, SELECT_ITEM } from "./types";
 import axios from "axios";
 import { returnErrors } from "./errorActions";
 import { loginUser } from './userActions';
@@ -17,6 +17,17 @@ export const getItems = () => async (dispatch) => {
 		// }
 	dispatch({
 		type: GET_ITEMS,
+		payload: result.data
+	})
+}
+
+export const getItemsByUser = (userId) => async (dispatch) => {
+	const result = await axios.post(`/api/items/${userId}`)
+	.catch((err) =>
+			dispatch(returnErrors(err.response.data, err.response.status))
+		);
+	dispatch({
+		type: GET_ITEMS_BY_USER,
 		payload: result.data
 	})
 }

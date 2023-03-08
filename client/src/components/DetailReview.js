@@ -10,7 +10,7 @@ import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import styles from './style.css';
 
-import { deleteItem } from '../actions/itemActions';
+import { getItems, deleteItem } from '../actions/itemActions';
 
 class DetailReview extends Component {
     constructor() {
@@ -108,4 +108,5 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(DetailReview);
+
+export default connect(mapStateToProps, {getItems, deleteItem})(DetailReview);
