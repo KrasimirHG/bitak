@@ -148,7 +148,7 @@ class ShoppingList extends Component {
 		const style = !this.props.user ? {pointerEvents: 'none'} : {}
 		return (
 			<div style={{padding: '10px'}}>
-				<Grid container direction="row" spacing={2} justifyContent="flex-end" style = {style}>
+				<Grid container direction="row" spacing={2} justifyContent="center" style = {style}>
 					{products.map((prod) => (
 						<Grid item xs={12} sm={3}>
 							<ReviewCard
