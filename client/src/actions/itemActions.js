@@ -28,7 +28,7 @@ export const getItemsByUser = (userId) => async (dispatch) => {
 		);
 	dispatch({
 		type: GET_ITEMS_BY_USER,
-		payload: result.data
+		payload: result.data || []
 	})
 }
 

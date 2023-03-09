@@ -10,7 +10,7 @@ import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import styles from './style.css';
 
-import { getItems, deleteItem } from '../actions/itemActions';
+import { getItemsByUser, deleteItem } from '../actions/itemActions';
 
 class DetailReview extends Component {
     constructor() {
@@ -24,6 +24,7 @@ class DetailReview extends Component {
 
     componentDidMount() {
         this.getLocation();
+        this.props.getItemsByUser(this.props.item.createdBy);
     }
 
     getLocation = () => {
@@ -109,4 +110,4 @@ const mapStateToProps = (state) => {
 };
 
 
-export default connect(mapStateToProps, {getItems, deleteItem})(DetailReview);
+export default connect(mapStateToProps, {getItemsByUser, deleteItem})(DetailReview);

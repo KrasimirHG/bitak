@@ -74,7 +74,7 @@ router.get("/", authCookie, async (req, res) => {
 // @access private
 router.post("/:userId", async (req, res) => {
   try {
-    const items = await Item.find({ createdBy: req.params.id }).sort({
+    const items = await Item.find({ createdBy: req.params.userId }).sort({
       date: -1,
     });
     const result = items;

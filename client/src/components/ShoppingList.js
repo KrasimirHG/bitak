@@ -133,6 +133,7 @@ class ShoppingList extends Component {
 	
 	componentDidMount() {
 		this.props.getItems();
+		// this.props.clearSelectedItem()
 	}
 
 	delItem(id) {

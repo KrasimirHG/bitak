@@ -1,5 +1,6 @@
 const initialState = {
     items: [],
+    itemsByUser: [],
     user: {},
     errors: {},
     selectedItem: {},
@@ -15,6 +16,12 @@ export default function appReducer(state=initialState, action) {
                 items: [...action.payload.items],
                 user: action.payload.user,
                 shouldRedirect: false
+            }
+        };
+        case 'GET_ITEMS_BY_USER': {
+            return {
+                ...state,
+                itemsByUser: [...action.payload]
             }
         };
         case 'ADD_ITEM': {
