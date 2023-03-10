@@ -79,12 +79,13 @@ class DetailReview extends Component {
                         <h4>Phone: {phoneNumber}</h4>
                         <h4>Location: </h4>
                         <div className={styles.googleMap}>
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d47706.780655602306!2d25.050249135824522!3d41.64118200549584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbg!4v1576834988537!5m2!1sen!2sbg"
-                            allowfullScreen
-                            width={350}
-                            height={300}
-                        ></iframe>
+                            <iframe
+                                title="map"
+                                src={`https://www.google.com/maps?q=${this.state.lat},${this.state.long}&z=15&output=embed`}
+                                allowfullScreen
+                                width={350}
+                                height={300}
+                            ></iframe>
                         </div>
                         {this.state.geoError ? (
                             <h4>{this.setState.geoError}</h4>
@@ -97,6 +98,9 @@ class DetailReview extends Component {
                     </Container>
                 </Grid>
                 <h2>From the same customer: </h2>
+                <Grid container spacing={1}>
+                    <Grid item>Pics of other products of the users</Grid>
+                </Grid>
             </Grid>
         );
     }
@@ -109,5 +113,6 @@ const mapStateToProps = (state) => {
     };
 };
 
-
-export default connect(mapStateToProps, {getItemsByUser, deleteItem})(DetailReview);
+export default connect(mapStateToProps, { getItemsByUser, deleteItem })(
+    DetailReview
+);
