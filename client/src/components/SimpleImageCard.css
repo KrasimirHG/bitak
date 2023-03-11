@@ -1,0 +1,9 @@
+.cardStyle {
+   background-color: aqua
+};
+
+.cardContentStyle {
+    display: flex;
+    align-content: baseline;
+    height: 20px;
+}

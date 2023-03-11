@@ -22,6 +22,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Grid from '@mui/material/Grid';
 
 import {getItems, deleteItem} from '../actions/itemActions';
+import SimpleImageCard from './SimpleImageCard';
 // import store from '../store';
 
 function ReviewCard(props) {
@@ -121,6 +122,7 @@ class ShoppingList extends Component {
                         </Grid>
                     ))}
                 </Grid>
+                {products[0] && <SimpleImageCard image={products[0].filename[0]} name={'Праскови'} />}
             </div>
         );
     }
