@@ -23,6 +23,7 @@ import Grid from '@mui/material/Grid';
 
 import {getItems, deleteItem} from '../actions/itemActions';
 import SimpleImageCard from './SimpleImageCard';
+import ListSimpleImgCard from './ListSimpleImgCard';
 // import store from '../store';
 
 function ReviewCard(props) {
@@ -101,6 +102,11 @@ class ShoppingList extends Component {
 
     render() {
         const products = this.props.items;
+        const simpleProducts = products.map(product => ({
+            id: product._id,
+            image: product.filename[0],
+            name: product.name
+        }));
         console.log(products);
         return (
             <div style={{padding: '10px'}}>
@@ -122,7 +128,9 @@ class ShoppingList extends Component {
                         </Grid>
                     ))}
                 </Grid>
-                {products[0] && <SimpleImageCard image={products[0].filename[0]} name={'Праскови'} />}
+                {/* {products[0] && <SimpleImageCard image={products[0].filename[0]} name={'Праскови'} />} */}
+                <ListSimpleImgCard items={simpleProducts} />
+
             </div>
         );
     }
