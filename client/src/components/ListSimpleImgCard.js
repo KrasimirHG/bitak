@@ -18,6 +18,7 @@ const theme = createTheme({
 });
 
 export default function ListSimpleImgCard(props) {
+    const handleClick = (id) => props.onClick(id);
     const items = props?.items || [];
     return (
         <ThemeProvider theme={theme}>
@@ -30,7 +31,7 @@ export default function ListSimpleImgCard(props) {
                     key={item.id}
                     image={item.image}
                     name={item.name}
-                    onClick={() => console.log('Id is: ', item.id)}
+                    onClick={() => handleClick(item.id)}
                 />)}
             </Box>
         </ThemeProvider>
@@ -38,5 +39,6 @@ export default function ListSimpleImgCard(props) {
 }
 
 ListSimpleImgCard.propTypes = {
-    items: PropTypes.array
+    items: PropTypes.array,
+    onClick: PropTypes.func
 };

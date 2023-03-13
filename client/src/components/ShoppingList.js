@@ -100,6 +100,10 @@ class ShoppingList extends Component {
         console.log('PROD_ID IS: ', id);
     }
 
+    onHandleClick(id) {
+        console.log('PROD_ID IS: ', id);
+    }
+
     render() {
         const products = this.props.items;
         const simpleProducts = products.map(product => ({
@@ -117,7 +121,7 @@ class ShoppingList extends Component {
                 </Link>
                 <Grid container direction="row" spacing={2} justifyContent="flex-start">
                     {products.map((prod) => (
-                        <Grid item xs={12} sm={3}>
+                        <Grid item xs={12} sm={3} key={prod._id}>
                             <ReviewCard
                                 pic={prod.filename[0]}
                                 name={prod.name}
@@ -129,7 +133,7 @@ class ShoppingList extends Component {
                     ))}
                 </Grid>
                 {/* {products[0] && <SimpleImageCard image={products[0].filename[0]} name={'Праскови'} />} */}
-                <ListSimpleImgCard items={simpleProducts} />
+                <ListSimpleImgCard items={simpleProducts} onClick={(id) => this.onHandleClick(id)}/>
 
             </div>
         );

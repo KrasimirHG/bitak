@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import ImageGallery from 'react-image-gallery';
+import PropTypes from 'prop-types';
 
 // import {deleteItem} from '../actions/itemActions';
 
@@ -28,6 +29,14 @@ class DetailReview extends Component {
             </div>
         );
     }
+};
+
+DetailReview.propTypes = {
+    item: PropTypes.shape({
+        description: PropTypes.string,
+        name: PropTypes.string,
+        filename: PropTypes.string
+    })
 };
 
 const mapStateToProps = (state) => {
