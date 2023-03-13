@@ -30,7 +30,7 @@ export default function ListSimpleImgCard(props) {
                     key={item.id}
                     image={item.image}
                     name={item.name}
-                    onClick={() => console.log('Id is: ', item.id)}
+                    onClick={() => props.onClick(item.id)}
                 />)}
             </Box>
         </ThemeProvider>

@@ -11,7 +11,7 @@ import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import styles from './style.css';
 
-import { getItemsByUser, deleteItem } from '../actions/itemActions';
+import { getItemsByUser, deleteItem, selectItem } from '../actions/itemActions';
 
 class DetailReview extends Component {
     constructor() {
@@ -45,6 +45,11 @@ class DetailReview extends Component {
         });
     };
 
+    handleClick = (id) => {
+        const item = this.props.item.find(item => item._id === id);
+        item && this.props.selectItem(item);
+    }
+
     render() {
         let { filename: pics, name, description } = this.props.item;
         if (!pics) {
@@ -59,6 +64,11 @@ class DetailReview extends Component {
         }));
 
         const { firstName, lastName, email, phoneNumber } = this.props.user;
+        const simpleProducts = this.props.itemsByUser.map(product => ({
+            id: product._id,
+            image: product.filename[0],
+            name: product.name
+        }));
 
         return (
             <Grid container spacing={3}>
@@ -99,7 +109,7 @@ class DetailReview extends Component {
                     </Container>
                 </Grid>
                 <h2>From the same customer: </h2>
-                {/* <ListSimpleImgCard items={simpleProducts} /> */}
+                <ListSimpleImgCard items={simpleProducts} onClick={() => this.handleClick()}/>
             </Grid>
         );
     }
@@ -108,7 +118,8 @@ class DetailReview extends Component {
 const mapStateToProps = (state) => {
     return {
         item: state.selectedItem,
-        user: state.user?.user
+        user: state.user?.user,
+        itemsByUser: state.itemsByUser
     };
 };
 
