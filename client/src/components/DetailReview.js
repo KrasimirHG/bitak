@@ -109,7 +109,7 @@ class DetailReview extends Component {
                     </Container>
                 </Grid>
                 <h2>From the same customer: </h2>
-                <ListSimpleImgCard items={simpleProducts} onClick={() => this.handleClick()}/>
+                <ListSimpleImgCard items={simpleProducts} onClick={(id) => this.handleClick(id)}/>
             </Grid>
         );
     }
