@@ -6,6 +6,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Image from 'material-ui-image';
+import ListSimpleImgCard from './ListSimpleImgCard';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import styles from './style.css';
@@ -98,9 +99,7 @@ class DetailReview extends Component {
                     </Container>
                 </Grid>
                 <h2>From the same customer: </h2>
-                <Grid container spacing={1}>
-                    <Grid item>Pics of other products of the users</Grid>
-                </Grid>
+                {/* <ListSimpleImgCard items={simpleProducts} /> */}
             </Grid>
         );
     }
