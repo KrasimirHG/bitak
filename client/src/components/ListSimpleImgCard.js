@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import SimpleImageCard from './SimpleImageCard';
-import Box from '@material-ui/material/Box';
+import Box from '@material-ui/core/Box';
 // import { ThemeProvider, createTheme } from '@material-ui/material/styles';
 
 // const theme = createTheme({

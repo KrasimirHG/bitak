@@ -46,12 +46,12 @@ class DetailReview extends Component {
     };
 
     handleClick = (id) => {
-        const item = this.props.item.find(item => item._id === id);
+        const item = this.props.items.find((item) => item._id === id);
         item && this.props.selectItem(item);
-    }
+    };
 
     render() {
-        let { filename: pics, name, description } = this.props.item;
+        let { filename: pics, name, description, price } = this.props.item;
         if (!pics) {
             return <h2>Please, select a product</h2>;
         }
@@ -64,7 +64,7 @@ class DetailReview extends Component {
         }));
 
         const { firstName, lastName, email, phoneNumber } = this.props.user;
-        const simpleProducts = this.props.itemsByUser.map(product => ({
+        const simpleProducts = this.props.itemsByUser.map((product) => ({
             id: product._id,
             image: product.filename[0],
             name: product.name
@@ -74,7 +74,7 @@ class DetailReview extends Component {
             <Grid container spacing={3}>
                 <Grid item xs={12} md={8}>
                     <Container>
-                        <h1>{name}</h1>
+                        <h1>{name} {price}</h1>
                         <ImageGallery items={images} />
                         <p>{description}</p>
                     </Container>
@@ -108,8 +108,13 @@ class DetailReview extends Component {
                         )}
                     </Container>
                 </Grid>
-                <h2>From the same customer: </h2>
-                <ListSimpleImgCard items={simpleProducts} onClick={(id) => this.handleClick(id)}/>
+                <Box display={'flex'} flexDirection={'column'}>
+                    <h2>From the same customer: </h2>
+                    <ListSimpleImgCard
+                        items={simpleProducts}
+                        onClick={(id) => this.handleClick(id)}
+                    />
+                </Box>
             </Grid>
         );
     }
@@ -117,12 +122,15 @@ class DetailReview extends Component {
 
 const mapStateToProps = (state) => {
     return {
+        items: state.items,
         item: state.selectedItem,
         user: state.user?.user,
         itemsByUser: state.itemsByUser
     };
 };
 
-export default connect(mapStateToProps, { getItemsByUser, deleteItem })(
-    DetailReview
-);
+export default connect(mapStateToProps, {
+    getItemsByUser,
+    deleteItem,
+    selectItem
+})(DetailReview);
