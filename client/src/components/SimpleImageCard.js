@@ -1,31 +1,31 @@
 import * as React from 'react';
-import Card from '@material-ui/material/Card';
-import CardContent from '@material-ui/material/CardContent';
-import CardMedia from '@material-ui/material/CardMedia';
-import Typography from '@material-ui/material/Typography';
-import { CardActionArea } from '@material-ui/material';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import PropTypes from 'prop-types';
-import { ThemeProvider, createTheme } from '@material-ui/material/styles';
+// import { ThemeProvider, createTheme } from '@material-ui/material/styles';
 
-const theme = createTheme({
-    components: {
-        MuiCard: {
-            styleOverrides: {
-                root: {
-                    minWidth: 145,
-                    marginRight: 2
-                }
-            }
-        },
-        MuiCardContent: {
-            styleOverrides: {
-                root: {
-                    padding: 0
-                }
-            }
-        }
-    }
-});
+// const theme = createTheme({
+//     components: {
+//         MuiCard: {
+//             styleOverrides: {
+//                 root: {
+//                     minWidth: 145,
+//                     marginRight: 2
+//                 }
+//             }
+//         },
+//         MuiCardContent: {
+//             styleOverrides: {
+//                 root: {
+//                     padding: 0
+//                 }
+//             }
+//         }
+//     }
+// });
 
 export default function SimpleImageCard(props) {
     const handleClick = () => {
@@ -34,7 +34,7 @@ export default function SimpleImageCard(props) {
 
     const {image, name} = props;
     return (
-        <ThemeProvider theme={theme}>
+        // <ThemeProvider theme={theme}>
             <Card sx={{ maxWidth: 145 }} onClick={() => handleClick()}>
                 <CardActionArea>
                     <CardMedia
@@ -50,7 +50,7 @@ export default function SimpleImageCard(props) {
                     </CardContent>
                 </CardActionArea>
             </Card>
-        </ThemeProvider>
+        // </ThemeProvider>
     );
 }
 SimpleImageCard.propTypes = {
