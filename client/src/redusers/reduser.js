@@ -12,7 +12,6 @@ export default function appReducer(state = initialState, action) {
                 ...state,
                 items: [...action.payload]
             };
-
         case 'ADD_ITEM':
             return {
                 ...state,
@@ -23,6 +22,11 @@ export default function appReducer(state = initialState, action) {
             return {
                 ...state,
                 items: state.items.filter(el => el._id !== action.payload)
+            };
+        case 'SET_REDIRECT':
+            return {
+                ...state,
+                shouldRedirect: action.payload
             };
         case 'GET_ERRORS':
             return {

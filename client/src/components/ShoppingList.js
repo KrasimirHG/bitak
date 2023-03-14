@@ -5,16 +5,17 @@ import PropTypes from 'prop-types';
 
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import {getItems, deleteItem} from '../actions/itemActions';
+import {getItems, deleteItem, setRedirect} from '../actions/itemActions';
 import ListSimpleImgCard from './ListSimpleImgCard';
 import ReviewCard from './ReviewCard';
 
 function ShoppingList(props) {
-    const {getItems, deleteItem, items} = props;
+    const {getItems, deleteItem, setRedirect, items} = props;
 
     useEffect(() => {
         getItems();
-    }, [getItems]);
+        setRedirect(false);
+    }, [getItems, setRedirect]);
 
     function handleClick(id) {
         deleteItem(id);
@@ -59,6 +60,7 @@ function ShoppingList(props) {
 ShoppingList.propTypes = {
     getItems: PropTypes.func,
     deleteItem: PropTypes.func,
+    setRedirect: PropTypes.func,
     items: PropTypes.array
 };
 
@@ -68,4 +70,4 @@ const mapStateToProps = state => {
     };
 };
 
-export default connect(mapStateToProps, ({getItems, deleteItem}))(ShoppingList);
+export default connect(mapStateToProps, ({getItems, deleteItem, setRedirect}))(ShoppingList);

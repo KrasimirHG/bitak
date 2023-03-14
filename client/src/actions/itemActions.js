@@ -1,4 +1,4 @@
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from './types';
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, SET_REDIRECT } from './types';
 import axios from 'axios';
 import { returnErrors } from './errorActions';
 
@@ -63,5 +63,12 @@ export const addItem = (name, description, img) => async(dispatch) => {
     dispatch({
         type: ADD_ITEM,
         payload: result.data
+    });
+};
+
+export const setRedirect = (shouldRedirect) => (dispatch) => {
+    dispatch({
+        type: SET_REDIRECT,
+        payload: shouldRedirect
     });
 };
