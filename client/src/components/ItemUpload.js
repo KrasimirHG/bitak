@@ -13,11 +13,8 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import PublishIcon from '@mui/icons-material/Publish';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { addItem } from '../actions/itemActions';
-
-const theme = createTheme();
 
 class ItemUpload extends Component {
     constructor(props) {
@@ -48,81 +45,79 @@ class ItemUpload extends Component {
     render() {
         if (this.props.shouldRedirect) return <Navigate replace to='/'/>;
         return (
-            <ThemeProvider theme={theme}>
-                <Container component="main" maxWidth="xs">
-                    <CssBaseline />
-                    <Box
-                        sx={{
-                            marginTop: 8,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center'
-                        }}
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center'
+                    }}
+                >
+                    <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
+                        <PublishIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Upload Item
+                    </Typography>
+                    <form
+                        noValidate
+                        onSubmit={this.onSubmit}
+                        method="post"
+                        encType="multipart/form-data"
                     >
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                            <PublishIcon />
-                        </Avatar>
-                        <Typography component="h1" variant="h5">
-                            Upload Item
-                        </Typography>
-                        <form
-                            noValidate
-                            onSubmit={this.onSubmit}
-                            method="post"
-                            encType="multipart/form-data"
-                        >
-                            <Grid container spacing={2}>
-                                <Grid item xs={12} sm={6}>
-                                    <TextField
-                                        autoComplete="name"
-                                        name="name"
-                                        variant="outlined"
-                                        required
-                                        fullWidth
-                                        id="name"
-                                        label="name"
-                                        autoFocus
-                                        onChange={this.onChange}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        variant="outlined"
-                                        required
-                                        fullWidth
-                                        id="description"
-                                        label="description"
-                                        name="description"
-                                        onChange={this.onChange}
-                                        autoFocus
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <input
-                                        accept="image/*"
-                                        id="raised-button-file"
-                                        multiple
-                                        type="file"
-                                        onChange={this.onImageChange}
-                                    />
-                                    <div>
-                                        The images format must be png ,
-                                        jpeg, jpg or tiff
-                                    </div>
-                                </Grid>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    autoComplete="name"
+                                    name="name"
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="name"
+                                    label="name"
+                                    autoFocus
+                                    onChange={this.onChange}
+                                />
                             </Grid>
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                            >
-                                Upload
-                            </Button>
-                        </form>
-                    </Box>
-                </Container>
-            </ThemeProvider>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="description"
+                                    label="description"
+                                    name="description"
+                                    onChange={this.onChange}
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <input
+                                    accept="image/*"
+                                    id="raised-button-file"
+                                    multiple
+                                    type="file"
+                                    onChange={this.onImageChange}
+                                />
+                                <div>
+                                    The images format must be png ,
+                                    jpeg, jpg or tiff
+                                </div>
+                            </Grid>
+                        </Grid>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                        >
+                            Upload
+                        </Button>
+                    </form>
+                </Box>
+            </Container>
         );
     }
 }
