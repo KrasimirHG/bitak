@@ -1,24 +1,29 @@
 import React, { useEffect } from 'react';
-import {connect} from 'react-redux';
+import {connect, useSelector, useDispatch} from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import {getItems, deleteItem, setRedirect} from '../actions/itemActions';
+// import {getItems, deleteItem, setRedirect} from '../actions/itemActions';
 import ListSimpleImgCard from './ListSimpleImgCard';
 import ReviewCard from './ReviewCard';
+import {
+    getItemsAsync, addItemAsync, deleteItemAsync, setRedirect, getErrorsAsync, clearErrors, selectApp
+} from '../appSlice';
 
 function ShoppingList(props) {
-    const {getItems, deleteItem, setRedirect, items} = props;
+    // const {getItemsAsync, deleteItemAsync, setRedirect} = props;
+    const dispatch = useDispatch();
+    const items = useSelector(selectApp).items;
 
     useEffect(() => {
-        getItems();
+        getItemsAsync();
         setRedirect(false);
-    }, [getItems, setRedirect]);
+    }, []);
 
     function handleClick(id) {
-        deleteItem(id);
+        deleteItemAsync(id);
         console.log('PROD_ID IS: ', id);
     }
 
@@ -47,27 +52,28 @@ function ShoppingList(props) {
                             name={prod.name}
                             description={prod.description}
                             id={prod._id}
-                            onClick={() => handleClick(prod._id)}
+                            onClick={() => dispatch(handleClick(prod._id))}
                         />
                     </Grid>
                 ))}
             </Grid>
-            <ListSimpleImgCard items={simpleProducts} onClick={(id) => onHandleClick(id)}/>
+            <ListSimpleImgCard items={simpleProducts} onClick={(id) => dispatch(onHandleClick(id))}/>
         </div>
     );
 };
 
 ShoppingList.propTypes = {
-    getItems: PropTypes.func,
-    deleteItem: PropTypes.func,
+    getItemsAsync: PropTypes.func,
+    deleteItemAsync: PropTypes.func,
     setRedirect: PropTypes.func,
     items: PropTypes.array
 };
 
-const mapStateToProps = state => {
-    return {
-        items: state.items
-    };
-};
+// const mapStateToProps = state => {
+//     return {
+//         items: state.items
+//     };
+// };
 
-export default connect(mapStateToProps, ({getItems, deleteItem, setRedirect}))(ShoppingList);
+// export default connect(mapStateToProps, ({getItemsAsync, addItemAsync, deleteItemAsync, setRedirect, getErrorsAsync, clearErrors}))(ShoppingList);
+export default ShoppingList;

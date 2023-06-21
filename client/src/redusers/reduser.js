@@ -40,4 +40,4 @@ export default function appReducer(state = initialState, action) {
             };
         default: return state;
     }
-}
+};

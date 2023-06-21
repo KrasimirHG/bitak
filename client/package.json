@@ -16,6 +16,7 @@
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.10.9",
     "@mui/material": "^5.10.11",
+    "@reduxjs/toolkit": "^1.9.3",
     "@types/jest": "^29.4.0",
     "@types/node": "^18.15.0",
     "@types/react": "^18.0.28",
